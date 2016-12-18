@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Testing AD Integration";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>Here we go....</h3>
+
+<p>
+    <h3>Users logged in this year:</h3>
+    <ul>
+@{foreach (var user in ViewBag.Users)
+    {
+        <li>@user</li>
+    } }
+    </ul>
+
+    <h3>Users in GitUsers Group:</h3>
+    <ul>
+        @{ foreach(var user in ViewBag.GroupUsers) {
+                <li>@user</li>
+        }}
+    </ul>
+</p>
