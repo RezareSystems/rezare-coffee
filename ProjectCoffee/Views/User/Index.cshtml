@@ -1,0 +1,167 @@
+﻿@model ProjectCoffee.Controllers.UserViewModel
+
+@{
+    ViewBag.Title = "User Page";
+}
+
+
+<div class="user-container">
+    <p/>
+    <table>
+        <tr>
+            <td><h2 style="display:inline">Hi</h2></td>
+            <td>&nbsp;</td>
+            <td><h2 id="editable-header" style="display:inline">@(Model.User.FirstName)</h2></td>
+            <td><input id="hiding-textbox" type="text" style="display: none;" /></td>
+        </tr>
+    </table>
+    <h3>What will you be having?</h3>
+
+    <table class="user-table">
+        <tr>
+            <td style="text-align: right">
+                <label for="coffee-select">Pick your drink type:</label>&nbsp;&nbsp;&nbsp;
+            </td>
+            <td>
+                @Html.DropDownListFor(m => m.User.Drink, new SelectList(Model.CoffeeList, dataValueField: "Id", dataTextField: "Name"), htmlAttributes: new { @id = "coffee-select", @class = "coffee-dropdown" })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="text-align: right">
+                <label for="">Options:</label>&nbsp;&nbsp;&nbsp;
+            </td>
+            <td>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Set Options &nbsp;<span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li class="non-closable">
+                            <div class="container" ng-app="optionsApp" ng-controller="optionsCtrl">
+                                <table>
+                                    <tr ng-repeat="x in options">
+                                        <td><a href="javascript:void(0)" ng-click="minusOptions(x.NameBehind)"><span class="glyphicon glyphicon-minus"></span></a></td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            {{ x.Count }}
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            {{ x.Name }}
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        <td><a href="javascript:void(0)" ng-click="addOptions(x.NameBehind)"><span class="glyphicon glyphicon-plus"></span></a></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="text-align:right">
+                @Html.CheckBoxFor(m => m.User.WillBeThere)&nbsp;&nbsp;&nbsp;
+            </td>
+            <td>
+                <label id="attendlabel" style="cursor: pointer;">I will be attending the team meeting @if (Model.Date.Date == DateTime.Now.Date)
+                { <span>today</span> }
+                else { <span>on @Model.Date.ToString("dd/MM/yyyy") </span>}</label>
+            </td>
+        </tr>
+    </table>
+</div>
+
+@section scripts {
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script>
+    $(function () {
+        $(".coffee-dropdown").select2();
+        $(".coffee-dropdown").on("select2:select", function (e) {
+
+        });
+
+        $('.non-closable').on('focus click blur', function (e) { e.stopPropagation(); })
+
+        $("#editable-header").dblclick(function () {
+            $("#editable-header").hide();
+            $("#hiding-textbox").val($("#editable-header").text());
+            $("#hiding-textbox").show();
+            $("#hiding-textbox").focus();
+        });
+
+        $("#hiding-textbox").focusout(function () {
+            $("#editable-header").show();
+            $("#hiding-textbox").hide();
+            if ($("#hiding-textbox").val() != "") {
+                $("#editable-header").text($("#hiding-textbox").val());
+            }
+        });
+
+        $("#attendlabel").click(function () {
+            var checkbox = $("#User_WillBeThere");
+            checkbox.prop("checked", !checkbox.prop("checked"));
+        });
+
+    });
+
+    var saveAll = function () {
+        // TODO AJAX CALL to save all data
+    };
+
+    // This angular controller is only for the dropdown
+    var app = angular.module('optionsApp', []);
+    app.controller('optionsCtrl', function ($scope) {
+        // TODO get extras
+        var options = [];
+
+        @{ 
+            foreach(var opt in Model.User.CoffeeOptions)
+            {
+                @:options.push[{NameBehind: opt.Key, Count: opt.Value, Name: "Blah"}]
+            }
+        }
+
+
+        //var options = [ { NameBehind: "SoyMilk", Name: "Soy Milk", Count: 0 },
+        //                { NameBehind: "ExtraShot", Name: "Extra Shot", Count: 0 },
+        //                { NameBehind: "Sugar", Name: "Sugar", Count: 0 },
+        //                { NameBehind: "Vanilla", Name: "Vanilla", Count: 0 },
+        //                { NameBehind: "HazelNut", Name: "Hazel Nut", Count: 0 },
+        //                { NameBehind: "Caramel", Name: "Caramel", Count: 0 }];
+        $scope.options = options;
+
+
+        $scope.addOptions = function (nameBehind) {
+            var found = $scope.options.find(function (element) {
+                if (element.NameBehind == nameBehind) {
+                    return element;
+                }
+            });
+
+            if (found.Count < 2) {
+                found.Count = found.Count + 1;
+            }
+        };
+
+        $scope.minusOptions = function (nameBehind) {
+            var found = $scope.options.find(function (element) {
+                if (element.NameBehind == nameBehind) {
+                    return element;
+                }
+            });
+
+            if (found.Count > 0) {
+                found.Count = found.Count - 1;
+            }
+        };
+    });
+
+
+</script>    
+}
+
