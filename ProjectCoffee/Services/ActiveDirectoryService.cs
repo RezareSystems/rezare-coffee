@@ -26,12 +26,61 @@ namespace ProjectCoffee.Services
         /// </summary>
         public string ACTIVE_DIRECTORY_DOMAIN = "rezare.co.nz";
 
+        public string ACTIVE_DIRECTORY_ADMIN_GROUP = "Rezare Coffee Admins";
+
 
         public ActiveDirectoryService()
         {
             // Get settings from web.config
             if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["activeDirectoryDomain"])) ACTIVE_DIRECTORY_DOMAIN = ConfigurationManager.AppSettings["activeDirectoryDomain"];
             if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["activeDirectoryGroup"])) ACTIVE_DIRECTORY_GROUP = ConfigurationManager.AppSettings["activeDirectoryGroup"];
+            if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["activeDirectoryAdmins"])) ACTIVE_DIRECTORY_ADMIN_GROUP = ConfigurationManager.AppSettings["activeDirectoryAdmins"];
+        }
+
+        /// <summary>
+        /// Returns whether the user is an admin user or not
+        /// </summary>
+        /// <param name="user">Determine if this user is admin</param>
+        /// <returns>The user is an admin user</returns>
+        public bool IsAdmin(User user)
+        {
+            return IsAdmin(user.Guid);
+        }
+
+        /// <summary>
+        /// Returns whether the user is an admin user or not
+        /// </summary>
+        /// <param name="user">Determine if the user with this GUID is admin</param>
+        /// <returns>The user is an admin user</returns>
+        public bool IsAdmin(Guid guid)
+        {
+            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, ACTIVE_DIRECTORY_DOMAIN))
+            {
+                UserPrincipal user = UserPrincipal.FindByIdentity(pc,IdentityType.Guid, guid.ToString());
+                IEnumerable<GroupPrincipal> groups = user.GetGroups().Select(u => u as GroupPrincipal);
+
+                if (groups.Any(u => u.SamAccountName == ACTIVE_DIRECTORY_ADMIN_GROUP)) return true;
+
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns whether the user is an admin user or not
+        /// </summary>
+        /// <param name="username">Determine if the user with this username is admin</param>
+        /// <returns>The user is an admin user</returns>
+        public bool IsAdmin(string username)
+        {
+            using(PrincipalContext pc = new PrincipalContext(ContextType.Domain, ACTIVE_DIRECTORY_DOMAIN))
+            {
+                UserPrincipal user = UserPrincipal.FindByIdentity(pc, username);
+                IEnumerable<GroupPrincipal> groups = user.GetGroups().Select(u => u as GroupPrincipal);
+
+                if (groups.Any(u => u.SamAccountName == ACTIVE_DIRECTORY_ADMIN_GROUP)) return true;
+
+                return false;
+            }
         }
         
         /// <summary>

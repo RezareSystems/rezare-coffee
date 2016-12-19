@@ -51,7 +51,6 @@ namespace ProjectCoffee.Migrations
                 var dbuser = dbUsers.First(u => u.Guid == adUser.Guid);
                 dbuser.Name = adUser.Name;
                 dbuser.NickName = adUser.NickName;
-                dbuser.IsAdmin = adminUsers.Any(v => v == adUser.Username);
                 context.Users.AddOrUpdate(dbuser);
             }
 

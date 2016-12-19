@@ -43,6 +43,7 @@ namespace ProjectCoffee.Models
         /// <summary>
         /// The user is an administrator
         /// </summary>
+        [Obsolete("Do not use this, use the ActiveDirectoryService.IsAdmin() function instead", true)]
         public bool IsAdmin { get; set; }
 
 
@@ -57,7 +58,6 @@ namespace ProjectCoffee.Models
             Name = user.Name;
             WillBeThere = true;
             NickName = user.NickName;
-            IsAdmin = isAdmin;
         }
 
         /// <summary>
