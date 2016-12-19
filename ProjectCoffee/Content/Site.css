@@ -1,7 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-color: #fff7e5;
+    background-color: whitesmoke;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -42,7 +42,7 @@ a:hover{
 
 .login_holder{
     text-align:center;
-    background-color:#873a00;
+    background-color:#a2836e;
     border-radius: 2em;
     width: 450px;
     margin-left: calc((100% - 450px) / 2);
@@ -50,6 +50,7 @@ a:hover{
     margin-top: calc((100% - 300px) / 3);
     padding-top: 2em;
     padding-bottom: 2em;
+   
 }
 
 .login_holder input{
@@ -58,10 +59,11 @@ a:hover{
     margin: 0.5em;
     border-radius: 2px;
     width: 20em;
+    color: white;
 }
 
 .login_holder button{
-    background-color: white;
+    background-color: lightyellow;
     border: 0px;
     border-radius: 1px;
     padding: 0.5em;
@@ -78,9 +80,14 @@ a:hover{
     margin-right: 1em;
 }
 
-footer{
-    border:none;
+footer {
+    border: none;
     position: absolute;
     bottom: 0;
     right: 1em;
+}    
+.footer_logo {
+    width: 15em;
+    margin-right: 1em;
+
 }
