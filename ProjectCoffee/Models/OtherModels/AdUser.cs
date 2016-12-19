@@ -4,7 +4,7 @@ using System.DirectoryServices.AccountManagement;
 using System.Linq;
 using System.Web;
 
-namespace ProjectCoffee.Models
+namespace ProjectCoffee.Models.OtherModels
 {
     /// <summary>
     /// A basic Active Directory User
@@ -22,14 +22,14 @@ namespace ProjectCoffee.Models
         public string Username { get; set; }
 
         /// <summary>
-        /// The users full name
+        /// The users last name
         /// </summary>
-        public string Name { get; set; }
+        public string LastName { get; set; }
 
         /// <summary>
         /// The users first name
         /// </summary>
-        public string NickName { get; set; }
+        public string FirstName { get; set; }
 
         /// <summary>
         /// The actual active directory user
@@ -44,8 +44,8 @@ namespace ProjectCoffee.Models
         {
             Guid = user.Guid.Value;
             Username = user.SamAccountName;
-            Name = user.GivenName + " " + user.Surname;
-            NickName = user.GivenName;
+            LastName = user.Surname;
+            FirstName = user.GivenName;
             _user = user;
         }
     }

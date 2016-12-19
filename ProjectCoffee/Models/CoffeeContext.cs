@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectCoffee.Models.DatabaseModels;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;

@@ -1,4 +1,6 @@
 ﻿using ProjectCoffee.Models;
+using ProjectCoffee.Models.DatabaseModels;
+using ProjectCoffee.Models.OtherModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -108,7 +110,7 @@ namespace ProjectCoffee.Services
             {
                 GroupPrincipal group = GroupPrincipal.FindByIdentity(pc, ACTIVE_DIRECTORY_GROUP);
                 PrincipalSearchResult<Principal> groupusers = group.GetMembers();
-                return groupusers.First(u => (u as UserPrincipal).SamAccountName == username).Guid.Value;
+                return groupusers.First(u => (u as UserPrincipal).SamAccountName.ToLower() == username.ToLower()).Guid.Value;
             }
         }
 

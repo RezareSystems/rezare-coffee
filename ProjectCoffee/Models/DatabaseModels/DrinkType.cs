@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ProjectCoffee.Models
+namespace ProjectCoffee.Models.DatabaseModels
 {
     /// <summary>
     /// The Type of drink a user can order

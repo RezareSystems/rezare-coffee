@@ -216,12 +216,21 @@
     <Compile Include="Migrations\201612190316305_Changed AdId in user to Guid.Designer.cs">
       <DependentUpon>201612190316305_Changed AdId in user to Guid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612192123272_Changed user fields.cs" />
+    <Compile Include="Migrations\201612192123272_Changed user fields.Designer.cs">
+      <DependentUpon>201612192123272_Changed user fields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612192237052_Added Coffee Options to User.cs" />
+    <Compile Include="Migrations\201612192237052_Added Coffee Options to User.Designer.cs">
+      <DependentUpon>201612192237052_Added Coffee Options to User.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AdUser.cs" />
+    <Compile Include="Models\OtherModels\AdUser.cs" />
     <Compile Include="Models\CoffeeContext.cs" />
-    <Compile Include="Models\DrinkType.cs" />
-    <Compile Include="Models\GlobalInformation.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\DatabaseModels\DrinkType.cs" />
+    <Compile Include="Models\DatabaseModels\GlobalInformation.cs" />
+    <Compile Include="Models\DatabaseModels\User.cs" />
+    <Compile Include="Models\OtherModels\ReportStruct.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ActiveDirectoryService.cs" />
     <Compile Include="Startup.cs" />
@@ -267,10 +276,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Home\Testing.cshtml" />
+    <Content Include="Views\Home\Report.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -292,6 +303,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612190316305_Changed AdId in user to Guid.resx">
       <DependentUpon>201612190316305_Changed AdId in user to Guid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612192123272_Changed user fields.resx">
+      <DependentUpon>201612192123272_Changed user fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612192237052_Added Coffee Options to User.resx">
+      <DependentUpon>201612192237052_Added Coffee Options to User.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

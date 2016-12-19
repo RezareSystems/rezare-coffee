@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ProjectCoffee.Models
+namespace ProjectCoffee.Models.DatabaseModels
 {
     /// <summary>
     /// Represents information that is global. There should only be one instance of this in the database

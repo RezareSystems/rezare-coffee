@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using ProjectCoffee.Models.OtherModels;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace ProjectCoffee.Models
+namespace ProjectCoffee.Models.DatabaseModels
 {
     /// <summary>
     /// A user of the coffee system
@@ -21,14 +24,14 @@ namespace ProjectCoffee.Models
         public Guid Guid { get; set; }
 
         /// <summary>
-        /// The Name of the user
+        /// The Last Name of the user
         /// </summary>
-        public string Name { get; set; }
+        public string LastName { get; set; }
 
         /// <summary>
         /// The Users First Name
         /// </summary>
-        public string NickName { get; set; }
+        public string FirstName { get; set; }
 
         /// <summary>
         /// The drink the user wants ordered for them
@@ -46,6 +49,26 @@ namespace ProjectCoffee.Models
         [Obsolete("Do not use this, use the ActiveDirectoryService.IsAdmin() function instead", true)]
         public bool IsAdmin { get; set; }
 
+        /// <summary>
+        /// The JSON String that holds the coffee options
+        /// </summary>
+        public string CoffeeOptionsJson { get; set; }
+
+        /// <summary>
+        /// The list of Coffee Options for the user
+        /// </summary>
+        [NotMapped]
+        public List<KeyValuePair<string, int>> CoffeeOptions {
+            get
+            {
+                return JsonConvert.DeserializeObject<List<KeyValuePair<string, int>>>(CoffeeOptionsJson);
+            }
+            set
+            {
+                CoffeeOptionsJson = JsonConvert.SerializeObject(value);
+            }
+        }
+
 
         /// <summary>
         /// Creates a new Database user from an Active Directory User (basic)
@@ -55,9 +78,9 @@ namespace ProjectCoffee.Models
         public User(AdUser user, bool isAdmin = false)
         {
             Guid = user.Guid;
-            Name = user.Name;
+            LastName = user.LastName;
             WillBeThere = true;
-            NickName = user.NickName;
+            FirstName = user.FirstName;
         }
 
         /// <summary>

@@ -1,0 +1,25 @@
+﻿@model List<ProjectCoffee.Models.OtherModels.ReportStruct>
+<div>
+    @foreach (var item in Model)
+    {
+        <h1>@item.DrinkType.Name (@item.Users.Count)</h1>
+        <ol>
+            @foreach (var user in item.Users)
+            {
+                <li>
+                    @{
+                        var name = "";
+                        if(item.Users.Where(u => u.FirstName == user.FirstName).Count() > 1)
+                        {
+                            name = user.FirstName + " " + user.LastName.Substring(0, 1) + ".";
+                        }else
+                        {
+                            name = user.FirstName;
+                        }
+                    }
+                    @name
+                </li>
+            }
+        </ol>
+    }
+</div>
