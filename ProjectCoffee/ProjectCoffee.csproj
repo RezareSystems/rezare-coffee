@@ -277,6 +277,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Home\Testing.cshtml" />
     <Content Include="Views\Home\Report.cshtml" />
+    <Content Include="Views\Home\AdminPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

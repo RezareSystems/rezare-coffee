@@ -25,6 +25,21 @@ namespace ProjectCoffee.Controllers
             return View("LoginPage");
         }
 
+        public ActionResult Test()
+        {
+            
+            using (var context = new CoffeeContext())
+            {
+                var user = context.Users.First();
+            
+                ViewBag.Title = "Project Coffee";
+                ViewBag.Shownav = false;
+                ViewBag.CurrentMeeting = DateTime.Now;
+                ViewBag.NextMeeting = DateTime.Now.AddDays(14);
+                return View("AdminPage", user);
+            }
+        }
+
         public ActionResult Credits()
         {
             return View();

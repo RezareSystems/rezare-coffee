@@ -1,0 +1,50 @@
+﻿@*model UserControl*@
+
+<div class="generate_button">
+    <p>
+        <button onclick="Generate_Report_Actions()">Generate Report</button>
+        for the current Meeting at @ViewBag.CurrentMeeting.ToString("D")
+    </p>
+</div>
+
+<div class="next_meeting">
+
+    <p>
+        The Next Meeting is Set for <input id="meeting" type="date" value="@ViewBag.NextMeeting.ToString("yyyy-MM-dd")" />
+    </p>
+</div>
+
+<div class="admin_table">
+    <table class="coffee_table">
+        @*Table Headers*@
+        <thead>
+        <tr class="coffee_headers">
+            <th>Name</th>
+            <th>Coffee</th>
+            <th>Options</th>
+            <th>Is Here</th>
+        </tr>
+        </thead>
+        @*Table Body*@
+        <tbody class="coffee_body">
+        <tr>
+            <td class="name">String</td>
+            <td class="coffee_type">String</td>
+            <td class="coffee_options">String</td>
+            <td class="is_here">String</td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+<script>
+    function Generate_Report_Actions()
+    {
+        //TODO : Update the Current Date to the NextMeeting Date
+        //TODO : Generate the Report
+    }
+    
+</script>
+
+
