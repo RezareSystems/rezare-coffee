@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #fff7e5;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +22,65 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.navbar{
+    background-color: #873a00;
+    border:0px;
+}
+
+h1,h2,h3,h4,h5,h6{
+    color: #873a00;
+}
+
+a, a:visited{
+    color: #873a00;
+}
+a:hover{
+    color: #a86e41;
+}
+
+.login_holder{
+    text-align:center;
+    background-color:#873a00;
+    border-radius: 2em;
+    width: 450px;
+    margin-left: calc((100% - 450px) / 2);
+    min-height: 300px;
+    margin-top: calc((100% - 300px) / 3);
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+.login_holder input{
+    border: 0px;
+    padding: 0.5em;
+    margin: 0.5em;
+    border-radius: 2px;
+    width: 20em;
+}
+
+.login_holder button{
+    background-color: white;
+    border: 0px;
+    border-radius: 1px;
+    padding: 0.5em;
+    margin-top:0.5em;
+    width: 20em;
+}
+
+.login_holder h1, .login_holder h2{
+    color: white;
+}
+
+.login_logo{
+    width: 2em;
+    margin-right: 1em;
+}
+
+footer{
+    border:none;
+    position: absolute;
+    bottom: 0;
+    right: 1em;
 }
