@@ -1,8 +1,10 @@
-﻿@model List<ProjectCoffee.Models.DatabaseModels.User>
+﻿@using ProjectCoffee.Controllers
+@model List<ProjectCoffee.Models.DatabaseModels.User>
 
 <div class="generate_button">
     <p>
-        <button onclick="Generate_Report_Actions()">Generate Report</button>
+        @*<button onclick="Generate_Report_Actions()">Generate Report</button>*@
+        @Html.ActionLink("Generate Report", "Report", "Home")
         for the current Meeting at @ViewBag.CurrentMeeting.ToString("D")
     </p>
 </div>
@@ -46,6 +48,7 @@
     {
         
         //TODO : Generate the Report
+       
         //TODO : Update the Current Date to the NextMeeting Date
         //TODO : Reset all Users status to being here
     }
