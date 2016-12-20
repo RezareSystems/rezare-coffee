@@ -89,6 +89,13 @@ namespace ProjectCoffee.Controllers
                 return RedirectToAction("Login");
             }
         }
+
+        public ActionResult LogOut()
+        {
+            Session.Abandon();
+
+            return RedirectToAction("Index");
+        }
         
         /// <summary>
         /// Returns a report of who wants what coffee

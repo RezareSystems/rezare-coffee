@@ -31,6 +31,10 @@
     <div class="container body-content">
         @RenderBody()
         <footer>
+            @if (Session["Guid"] != null)
+            {
+                @Html.ActionLink("Log Out", "LogOut", "Home")
+            }
             <p>&copy; @DateTime.Now.Year - <a href="//rezare.co.nz/">Rezare Systems</a> | @Html.ActionLink("Credits", "Credits")</p>
             <img class="footer_logo" src="~/Content/img/RezareLogo.png" alt="Rezare Logo" />
         </footer>
