@@ -36,7 +36,7 @@
                 <label for="">Options:</label>&nbsp;&nbsp;&nbsp;
             </td>
             <td>
-                <div class="dropdown">
+                <div class="dropdown" id="the-dropdown">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Set Options &nbsp;<span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li class="non-closable">
@@ -76,7 +76,7 @@
                                                                                                       }
                                                                                                       else
                                                                                                       {
-                                                                                                      <span>on @Model.Date.ToString("dd/MM/yyyy") </span>}</label>
+                                                                                                       <span>on @Model.Date.ToString("dd/MM/yyyy") </span>}</label>
             </td>
         </tr>
     </table>
@@ -93,7 +93,15 @@
     $(function () {
         $(".coffee-dropdown").select2();
         $(".coffee-dropdown").on("select2:select", function (e) {
+            saveAll();
+        });
 
+        $('#the-dropdown').on('hide.bs.dropdown', function () {
+            saveAll();
+        });
+
+        $("#User_WillBeThere").change(function() {
+            saveAll();
         });
 
         $('.non-closable').on('focus click blur', function (e) { e.stopPropagation(); })
@@ -116,19 +124,34 @@
         $("#attendlabel").click(function () {
             var checkbox = $("#User_WillBeThere");
             checkbox.prop("checked", !checkbox.prop("checked"));
+            saveAll();
         });
 
     });
 
     var saveAll = function () {
         // TODO AJAX CALL to save all data
+        var drinkID = $("#coffee-select").val();
+        optionsdata = options;
+        var checked = $("#User_WillBeThere").is(":checked");
+        
+        var sendData = {
+            DrinkID: drinkID,
+            Options: optionsdata,
+            IsHere: checked
+        };
+
+        $.post('@Url.Action("SaveChanges", "User", null, Request.Url.Scheme)', {data: JSON.stringify(sendData)}, function() {
+
+        }, "json");
+
     };
 
     // This angular controller is only for the dropdown
     var app = angular.module('optionsApp', []);
     app.controller('optionsCtrl', function ($scope) {
 
-        var options = [];
+        options = [];
         var jsObject = @Html.Raw(Json.Encode(Model.User.CoffeeOptions));
 
         console.log(jsObject);

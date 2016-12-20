@@ -1,5 +1,8 @@
-﻿using ProjectCoffee.Models;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using ProjectCoffee.Models;
 using ProjectCoffee.Models.DatabaseModels;
+using ProjectCoffee.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +36,34 @@ namespace ProjectCoffee.Controllers
 
                 return View(viewModel);
             }
+        }
+
+        [HttpPost]
+        public void SaveChanges(string data)
+        {
+            dynamic d = JObject.Parse(data);
+
+            var drinkID = d.DrinkID;
+            var IsHere = d.IsHere;
+
+            var newOptions = new List<KeyValuePair<string, int>>();
+
+            foreach (var i in d.Options)
+            {
+                int count = 0;
+                int.TryParse(i.Count.ToString(), out count);
+                newOptions.Add(new KeyValuePair<string, int>(i.NameBehind.ToString(), count));
+            }
+
+            var databaseService = new DatabaseService();
+            var user = databaseService.GetUser(Session["Guid"].ToString());
+
+            user.CoffeeOptionsJson = JsonConvert.SerializeObject(newOptions);
+            user.DrinkId = drinkID;
+            user.WillBeThere = IsHere;
+
+            databaseService.UpdateUser(user);
+
         }
     }
 
