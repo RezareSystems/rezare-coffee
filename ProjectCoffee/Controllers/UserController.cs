@@ -76,5 +76,7 @@ namespace ProjectCoffee.Controllers
         public DateTime Date { get; set; }
 
         public bool IsAdmin { get; set; }
+
+        public List<User> UserList { get; set; } 
     }
 }

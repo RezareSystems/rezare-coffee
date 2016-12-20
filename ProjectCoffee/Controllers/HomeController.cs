@@ -25,20 +25,23 @@ namespace ProjectCoffee.Controllers
             {
                 var user = new DatabaseService().GetUser(Session["Guid"].ToString());
                 var adS = new ActiveDirectoryService();
-                var isAdminFlag = adS.IsAdmin(user);
-                if (isAdminFlag)
-                {
-                    var users = adS.GetUsers();
-                    SetupAdmin();
-                }
-                    
-                return View("UserPage", new UserViewModel
+                var viewModel =  new UserViewModel
                 {
                     CoffeeList = new DatabaseService().GetAllDrinkTypes().ToList(),
                     Date = DateTime.Now,
                     User = user,
-                    IsAdmin = isAdminFlag
-                });
+                };
+
+                var isAdminFlag = adS.IsAdmin(user);
+                if (isAdminFlag)
+                {
+                    var dbS = new DatabaseService();
+                    viewModel.IsAdmin = true;
+                    viewModel.UserList = dbS.GetAllUsers().ToList();
+                    SetupAdmin();
+                }
+
+                return View("UserPage", viewModel);
             }
 
             ViewBag.Title = "Project:Coffee";

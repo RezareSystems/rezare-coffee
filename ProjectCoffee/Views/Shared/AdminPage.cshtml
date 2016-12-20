@@ -1,4 +1,4 @@
-﻿@*model UserControl*@
+﻿@model List<ProjectCoffee.Models.DatabaseModels.User>
 
 <div class="generate_button">
     <p>
@@ -27,12 +27,15 @@
         </thead>
         @*Table Body*@
         <tbody class="coffee_body">
-        <tr>
-            <td class="name">String</td>
-            <td class="coffee_type">String</td>
-            <td class="coffee_options">String</td>
-            <td class="is_here">String</td>
-        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="name">@item.FirstName</td>
+                <td class="coffee_type">@(item.Drink == null? string.Empty : item.Drink.Name )</td>
+                <td class="coffee_options">@item.CoffeeOptions</td>
+                <td class="is_here">@item.WillBeThere</td>
+            </tr>
+        }
         </tbody>
 
     </table>
