@@ -106,7 +106,12 @@ namespace ProjectCoffee.Controllers
                             },
                             LastName = "Lloyd",
                             FirstName = "Chris",
-                            WillBeThere = true
+                            WillBeThere = true,
+                            CoffeeOptions = new List<KeyValuePair<string, int>>()
+                            {
+                                new KeyValuePair<string, int>("Sugar", 2),
+
+                            }
                         },
                         new User()
                         {
