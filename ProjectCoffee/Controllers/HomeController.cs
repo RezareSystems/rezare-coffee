@@ -44,5 +44,38 @@ namespace ProjectCoffee.Controllers
         {
             return View();
         }
+
+
+        [HttpPost]
+        public ActionResult Login(UserAccount user)
+        {
+            var userService = new ActiveDirectoryService();
+            var success = userService.Authenticate(user.UserName, user.Password);
+                if (success)
+                {
+                    Session["Guid"] = userService.GetGuid(user.UserName);
+                    return RedirectToAction("LoggedIn");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "UserName or Password is wrong");
+                }
+            
+            return View("LoginPage");
+        }
+
+        public ActionResult LoggedIn()
+        {
+            if (Session["Guid"] != null)
+            {
+                return View("LoginPage");
+
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+        
     }
 }

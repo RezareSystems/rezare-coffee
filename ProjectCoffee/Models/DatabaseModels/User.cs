@@ -17,7 +17,7 @@ namespace ProjectCoffee.Models.DatabaseModels
         /// The ID of the record in our database
         /// </summary>
         public int Id { get; set; }
-
+       
         /// <summary>
         /// The ID of the record in Active Directory
         /// </summary>
@@ -68,6 +68,7 @@ namespace ProjectCoffee.Models.DatabaseModels
                 CoffeeOptionsJson = JsonConvert.SerializeObject(value);
             }
         }
+
 
 
         /// <summary>
