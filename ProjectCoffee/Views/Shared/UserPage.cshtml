@@ -25,7 +25,7 @@
                 <label for="coffee-select">Pick your drink type:</label>&nbsp;&nbsp;&nbsp;
             </td>
             <td>
-                @Html.DropDownListFor(m => m.User.Drink, new SelectList(Model.CoffeeList, dataValueField: "Id", dataTextField: "Name"), htmlAttributes: new {@id = "coffee-select", @class = "coffee-dropdown"})
+                @Html.DropDownListFor(m => m.User.DrinkId, new SelectList(Model.CoffeeList, dataValueField: "Id", dataTextField: "Name"), htmlAttributes: new {@id = "coffee-select", @class = "coffee-dropdown"})
             </td>
         </tr>
         <tr>
