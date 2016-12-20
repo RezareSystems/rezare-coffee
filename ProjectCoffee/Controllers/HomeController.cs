@@ -24,8 +24,14 @@ namespace ProjectCoffee.Controllers
             if (Session["Guid"] != null)
             {
                 var user = new DatabaseService().GetUser(Session["Guid"].ToString());
-                var isAdminFlag = new ActiveDirectoryService().IsAdmin(user);
-                if(isAdminFlag)SetupAdmin();
+                var adS = new ActiveDirectoryService();
+                var isAdminFlag = adS.IsAdmin(user);
+                if (isAdminFlag)
+                {
+                    var users = adS.GetUsers();
+                    SetupAdmin();
+                }
+                    
                 return View("UserPage", new UserViewModel
                 {
                     CoffeeList = new DatabaseService().GetAllDrinkTypes().ToList(),
@@ -42,15 +48,10 @@ namespace ProjectCoffee.Controllers
 
         private void SetupAdmin()
         {
-            using (var context = new CoffeeContext())
-            {
-                var user = context.Users.First();
-            
-                ViewBag.Title = "Project Coffee";
-                ViewBag.Shownav = false;
-                ViewBag.CurrentMeeting = DateTime.Now;
-                ViewBag.NextMeeting = DateTime.Now.AddDays(14);
-            }
+            ViewBag.Title = "Project Coffee";
+            ViewBag.Shownav = false;
+            ViewBag.CurrentMeeting = DateTime.Now;
+            ViewBag.NextMeeting = DateTime.Now.AddDays(14);
         }
 
         public ActionResult Credits()
