@@ -9,7 +9,7 @@ namespace ProjectCoffee.Models.OtherModels
     /// <summary>
     /// The structure of the Coffee Report
     /// </summary>
-    public struct ReportStruct
+    public class ReportStruct
     {
         /// <summary>
         /// The type of drink these users are ordering

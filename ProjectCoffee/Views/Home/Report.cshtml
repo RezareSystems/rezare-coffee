@@ -9,15 +9,17 @@
                 <li>
                     @{
                         var name = "";
-                        if(item.Users.Where(u => u.FirstName == user.FirstName).Count() > 1)
+                        if (item.Users.Where(u => u.FirstName == user.FirstName).Count() > 1)
                         {
                             name = user.FirstName + " " + user.LastName.Substring(0, 1) + ".";
-                        }else
+                        }
+                        else
                         {
                             name = user.FirstName;
                         }
                     }
                     @name
+                    @user.GetStringCoffeeOptions
                 </li>
             }
         </ol>

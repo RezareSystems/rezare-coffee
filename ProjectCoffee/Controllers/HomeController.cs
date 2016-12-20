@@ -37,7 +37,13 @@ namespace ProjectCoffee.Controllers
                 {
                     var dbS = new DatabaseService();
                     viewModel.IsAdmin = true;
-                    viewModel.UserList = dbS.GetAllUsers().ToList();
+                    var usersList = dbS.GetAllUsers().ToList();
+                    //foreach (var item in usersList)
+                    //{
+                    //    var lastDate = adS.FindLastLogonTime(item.Guid);
+                    //    item.WillBeThere = lastDate >= DateTime.Now.AddMinutes(-15);
+                    //}
+                    viewModel.UserList = usersList;
                     SetupAdmin();
                 }
 
@@ -105,116 +111,29 @@ namespace ProjectCoffee.Controllers
         /// </summary>
         /// <param name="confirmDate">The date for the report. This MUST match the date in the GlobalSettings in order for the report to generate.</param>
         /// <returns>A view with the report</returns>
-        public ActionResult Report(DateTime confirmDate)
+        public ActionResult Report(string confirmDate)
         {
-            List<ReportStruct> report = new List<ReportStruct>
+            var dbS = new DatabaseService();
+            var usersList = dbS.GetAllUsers().Where(p => p.WillBeThere == true && p.Drink != null).ToList();
+            var reports = new List<ReportStruct>();
+            
+            foreach (var user in usersList)
             {
-                new ReportStruct(){
-                    DrinkType = new DrinkType()
-                    {
-                        Id = -1,
-                        Name = "Coffee",
-                    },
-                    Users = new List<User>()
-                    {
-                        new User()
-                        {
-                            Id = -1,
-                            Guid = new Guid(),
-                            Drink = new DrinkType()
-                            {
-                                Id = -1,
-                                Name = "Coffee"
-                            },
-                            LastName = "Lloyd",
-                            FirstName = "Chris",
-                            WillBeThere = true,
-                            CoffeeOptions = new List<KeyValuePair<string, int>>()
-                            {
-                                new KeyValuePair<string, int>("Sugar", 2),
-
-                            }
-                        },
-                        new User()
-                        {
-                            Id = -1,
-                            Guid = new Guid(),
-                            Drink = new DrinkType()
-                            {
-                                Id = -1,
-                                Name = "Coffee"
-                            },
-                            LastName = "De Lange",
-                            FirstName = "Andrew",
-                            WillBeThere = true
-                        },
-                        new User()
-                        {
-                            Id = -1,
-                            Guid = new Guid(),
-                            Drink = new DrinkType()
-                            {
-                                Id = -1,
-                                Name = "Coffee"
-                            },
-                            LastName = "Cooke",
-                            FirstName = "Andrew",
-                            WillBeThere = true
-                        },
-                    }
-                },
-                new ReportStruct(){
-                    DrinkType = new DrinkType()
-                    {
-                        Id = -1,
-                        Name = "Hot Chocolate",
-                    },
-                    Users = new List<User>()
-                    {
-                        new User()
-                        {
-                            Id = -1,
-                            Guid = new Guid(),
-                            Drink = new DrinkType()
-                            {
-                                Id = -1,
-                                Name = "Hot Chocolate"
-                            },
-                            LastName = "Molchanov",
-                            FirstName = "Sergey",
-                            WillBeThere = true
-                        },
-                        new User()
-                        {
-                            Id = -1,
-                            Guid = new Guid(),
-                            Drink = new DrinkType()
-                            {
-                                Id = -1,
-                                Name = "Hot Chocolate"
-                            },
-                            LastName = "DeLeon",
-                            FirstName = "Gerard",
-                            WillBeThere = true
-                        },
-                        new User()
-                        {
-                            Id = -1,
-                            Guid = new Guid(),
-                            Drink = new DrinkType()
-                            {
-                                Id = -1,
-                                Name = "Hot Chocolate"
-                            },
-                            LastName = "Tisch",
-                            FirstName = "Keenan",
-                            WillBeThere = true
-                        },
-                    }
+                var report = reports.FirstOrDefault(p => p.DrinkType.Name == user.Drink?.Name);
+                if (report != null)
+                {
+                    report.Users.Add(user);
                 }
-
-            };
-            return View(report);
+                else
+                {
+                    reports.Add(new ReportStruct
+                    {
+                        DrinkType = user.Drink,
+                        Users = new List<User>{ user}
+                    });           
+                }
+            }
+            return View(reports);
         }
     }
 }
