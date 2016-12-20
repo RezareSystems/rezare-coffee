@@ -20,6 +20,7 @@ namespace ProjectCoffee.Models.DatabaseModels
 
         [ForeignKey("Drink")]
         public int? DrinkId { get; set; }
+
         /// <summary>
         /// The ID of the record in Active Directory
         /// </summary>
@@ -39,6 +40,9 @@ namespace ProjectCoffee.Models.DatabaseModels
         /// The drink the user wants ordered for them
         /// </summary>
         public virtual DrinkType Drink { get; set; }
+
+
+        public int Drink_Id { get; }
 
         /// <summary>
         /// The user will be at the next meeting
@@ -63,6 +67,7 @@ namespace ProjectCoffee.Models.DatabaseModels
         public List<KeyValuePair<string, int>> CoffeeOptions {
             get
             {
+                if (CoffeeOptionsJson == null) return new List<KeyValuePair<string, int>>();
                 return JsonConvert.DeserializeObject<List<KeyValuePair<string, int>>>(CoffeeOptionsJson);
             }
             set
@@ -70,7 +75,6 @@ namespace ProjectCoffee.Models.DatabaseModels
                 CoffeeOptionsJson = JsonConvert.SerializeObject(value);
             }
         }
-
 
 
         /// <summary>
