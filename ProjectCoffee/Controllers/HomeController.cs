@@ -25,17 +25,17 @@ namespace ProjectCoffee.Controllers
             {
                 var user = new DatabaseService().GetUser(Session["Guid"].ToString());
                 var adS = new ActiveDirectoryService();
+                var dbS = new DatabaseService();
                 var viewModel =  new UserViewModel
                 {
                     CoffeeList = new DatabaseService().GetAllDrinkTypes().ToList(),
-                    Date = DateTime.Now,
+                    Date = dbS.GetMeeting(),
                     User = user,
                 };
 
                 var isAdminFlag = adS.IsAdmin(user);
                 if (isAdminFlag)
                 {
-                    var dbS = new DatabaseService();
                     viewModel.IsAdmin = true;
                     var usersList = dbS.GetAllUsers().ToList();
                     foreach (var item in usersList)
@@ -44,7 +44,7 @@ namespace ProjectCoffee.Controllers
                         item.WillBeThere = lastDate >= DateTime.Today || item.WillBeThere;
                     }
                     viewModel.UserList = usersList;
-                    SetupAdmin();
+                    SetupAdmin(dbS.GetMeeting());
                 }
 
                 return View("UserPage", viewModel);
@@ -55,12 +55,12 @@ namespace ProjectCoffee.Controllers
             return View("LoginPage");
         }
 
-        private void SetupAdmin()
+        private void SetupAdmin(DateTime currentMeeting)
         {
             ViewBag.Title = "Project Coffee";
             ViewBag.Shownav = false;
-            ViewBag.CurrentMeeting = DateTime.Now;
-            ViewBag.NextMeeting = DateTime.Now.AddDays(14);
+            ViewBag.CurrentMeeting = currentMeeting;
+            ViewBag.NextMeeting = currentMeeting.AddDays(14);
         }
 
         public ActionResult Credits()
@@ -111,12 +111,14 @@ namespace ProjectCoffee.Controllers
         /// </summary>
         /// <param name="confirmDate">The date for the report. This MUST match the date in the GlobalSettings in order for the report to generate.</param>
         /// <returns>A view with the report</returns>
-        public ActionResult Report(string confirmDate)
+        public ActionResult Report(DateTime confirmDate, DateTime nextMeeting)
         {
             var dbS = new DatabaseService();
             var adS = new ActiveDirectoryService();
             var usersList = dbS.GetAllUsers().Where(p => p.Drink != null).ToList();
             var reports = new List<ReportStruct>();
+
+            if (confirmDate.Date != dbS.GetMeeting().Date) return View(reports);
 
             // Filter for active users
             foreach (var item in usersList)
@@ -147,6 +149,10 @@ namespace ProjectCoffee.Controllers
                     });           
                 }
             }
+
+            // Update the next meeting date
+            dbS.SetMeeting(nextMeeting);
+
             return View(reports);
         }
     }

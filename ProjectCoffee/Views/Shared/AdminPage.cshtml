@@ -1,10 +1,11 @@
 ﻿@using ProjectCoffee.Controllers
-@model List<ProjectCoffee.Models.DatabaseModels.User>
+@model ProjectCoffee.Controllers.UserViewModel
 
 <div class="generate_button">
     <p>
         @*<button onclick="Generate_Report_Actions()">Generate Report</button>*@
-        @Html.ActionLink("Generate Report", "Report", "Home")
+        @*This will need to be updated if they change the next meeting date*@
+        @Html.ActionLink("Generate Report", "Report", routeValues: new { confirmDate = Model.Date, nextMeeting = ViewBag.NextMeeting })
         for the current Meeting at @ViewBag.CurrentMeeting.ToString("D")
     </p>
 </div>
@@ -29,7 +30,7 @@
         </thead>
         @*Table Body*@
         <tbody class="coffee_body">
-        @foreach (var item in Model)
+        @foreach (var item in Model.UserList)
         {
             <tr>
                 <td class="name">@item.FirstName</td>

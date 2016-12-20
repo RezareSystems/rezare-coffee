@@ -51,5 +51,26 @@ namespace ProjectCoffee.Services
                 coffeeContext.SaveChanges();
             }
         }
+
+        public DateTime GetMeeting()
+        {
+            using(var coffeeContext = new CoffeeContext())
+            {
+                var settings = coffeeContext.GlobalInformation.FirstOrDefault();
+                return settings == null ? DateTime.Now : settings.MeetingDate;
+            }
+        }
+
+        public void SetMeeting(DateTime time)
+        {
+            using(var coffeeContext = new CoffeeContext())
+            {
+                var settings = coffeeContext.GlobalInformation.FirstOrDefault();
+                settings = settings ?? new GlobalInformation();
+                settings.MeetingDate = time;
+                coffeeContext.GlobalInformation.AddOrUpdate(settings);
+                coffeeContext.SaveChanges();
+            }
+        }
     }
 }

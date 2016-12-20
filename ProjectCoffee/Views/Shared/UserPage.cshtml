@@ -76,7 +76,7 @@
                                                                                                       }
                                                                                                       else
                                                                                                       {
-                                                                                                       <span>on @Model.Date.ToString("dd/MM/yyyy") </span>}</label>
+                                                                                                       <span>on @Model.Date.ToString("D") </span>}</label>
             </td>
         </tr>
     </table>
@@ -84,7 +84,7 @@
 
     @if (Model.IsAdmin)
     {
-            @Html.Partial("AdminPage", Model.UserList)
+            @Html.Partial("AdminPage", Model)
     }
 
 @section scripts {
