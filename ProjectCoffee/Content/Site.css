@@ -42,15 +42,16 @@ a:hover{
 
 .login_holder{
     text-align:center;
-    background-color:#a2836e;
+    /*background-color:#a2836e;*/
     border-radius: 2em;
-    width: 450px;
-    margin-left: calc((100% - 450px) / 2);
-    min-height: 300px;
-    margin-top: calc((100% - 300px) / 3);
-    padding-top: 2em;
-    padding-bottom: 2em;
-   
+    width: 600px;
+    margin-left: calc((100% - 50%) / 2);
+    min-height: 400px;
+    margin-top: calc((100% - 50%) / 3);
+    padding-top: 10em;
+    padding-bottom: 0em;
+    background:url(/content/img/coffeegif2.gif);
+    background-size: cover;
 }
 
 .login_holder input{
@@ -80,16 +81,15 @@ a:hover{
     margin-right: 1em;
 }
 
-footer {
+.footer {
     border: none;
     position: absolute;
     bottom: 0;
     right: 1em;
-}    
+}
 .footer_logo {
     width: 15em;
     margin-right: 1em;
-
 }
 
 .coffee-dropdown{
@@ -98,4 +98,46 @@ footer {
 
 .user-table{
     width: 100%;
+}
+.generate_button {
+    text-align: center;
+    background-color: lightgoldenrodyellow;
+    border: 0px;
+    border-radius: 1px;
+    padding: 1em;
+    margin-top:0.5em;
+    width: 30em;
+}
+.next_meeting {
+    text-align: left;
+    background-color: antiquewhite;
+    border: 0px;
+    border-radius: 1px;
+    padding: 1em;
+    margin-top:0.5em;
+    width: 30em;
+}
+.admin_table {
+    text-align: center;
+    background-color: sandybrown;
+    padding: 1em;
+    margin-top:0.5em;
+    width: 75em;
+    table-layout: auto;
+}
+.coffee_table {
+    text-align: left;
+    background-color: sandybrown;
+    padding: 1em;
+    margin-top:0em;
+    width: 60em;
+    table-layout: auto;
+}
+.coffee_headers {
+    text-align: left;
+    background-color: sandybrown;
+    padding: 1em;
+    margin-top:0em;
+    width: 60em;
+    table-layout: auto;
 }
