@@ -119,6 +119,12 @@ namespace ProjectCoffee.Controllers
             
             foreach (var user in usersList)
             {
+                int count = usersList.Count(u => u.FirstName == user.FirstName);
+                if (count > 1)
+                {
+                    user.FirstName = $"{user.FirstName} {user.LastName.Substring(0, 1)}.";
+                }
+
                 var report = reports.FirstOrDefault(p => p.DrinkType.Name == user.Drink?.Name);
                 if (report != null)
                 {
