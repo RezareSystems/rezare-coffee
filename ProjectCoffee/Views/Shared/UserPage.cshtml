@@ -76,7 +76,7 @@
                                                                                                       }
                                                                                                       else
                                                                                                       {
-                                                                                                          <span>on @Model.Date.ToString("dd/MM/yyyy") </span>}</label>
+                                                                                                      <span>on @Model.Date.ToString("dd/MM/yyyy") </span>}</label>
             </td>
         </tr>
     </table>
@@ -129,20 +129,18 @@
     app.controller('optionsCtrl', function ($scope) {
 
         var options = [];
-
-
         var jsObject = @Html.Raw(Json.Encode(Model.User.CoffeeOptions));
 
         console.log(jsObject);
 
+        for(var i = 0; i < jsObject.length; i++) {
+            options.push({ NameBehind: jsObject[i].Key, Name: jsObject[i].Key.replace(/([A-Z])/g, ' $1').trim(), Count: jsObject[i].Value })
+        }
 
-        //var options = [ { NameBehind: "SoyMilk", Name: "Soy Milk", Count: 0 },
-        //                { NameBehind: "ExtraShot", Name: "Extra Shot", Count: 0 },
-        //                { NameBehind: "Sugar", Name: "Sugar", Count: 0 },
-        //                { NameBehind: "Vanilla", Name: "Vanilla", Count: 0 },
-        //                { NameBehind: "HazelNut", Name: "Hazel Nut", Count: 0 },
-        //                { NameBehind: "Caramel", Name: "Caramel", Count: 0 }];
+        console.log(options);
+
         $scope.options = options;
+        
 
 
         $scope.addOptions = function (nameBehind) {
