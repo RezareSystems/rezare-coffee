@@ -43,5 +43,7 @@ namespace ProjectCoffee.Controllers
         public List<DrinkType> CoffeeList { get; set; }
 
         public DateTime Date { get; set; }
+
+        public bool IsAdmin { get; set; }
     }
 }

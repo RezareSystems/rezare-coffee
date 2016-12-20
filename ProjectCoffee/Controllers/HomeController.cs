@@ -23,11 +23,15 @@ namespace ProjectCoffee.Controllers
             // TODO: If the user is logged in, go main page
             if (Session["Guid"] != null)
             {
+                var user = new DatabaseService().GetUser(Session["Guid"].ToString());
+                var isAdminFlag = new ActiveDirectoryService().IsAdmin(user);
+                if(isAdminFlag)SetupAdmin();
                 return View("UserPage", new UserViewModel
                 {
                     CoffeeList = new DatabaseService().GetAllDrinkTypes().ToList(),
                     Date = DateTime.Now,
-                    User = new DatabaseService().GetUser(Session["Guid"].ToString())
+                    User = user,
+                    IsAdmin = isAdminFlag
                 });
             }
 
@@ -36,9 +40,8 @@ namespace ProjectCoffee.Controllers
             return View("LoginPage");
         }
 
-        public ActionResult Test()
+        private void SetupAdmin()
         {
-            
             using (var context = new CoffeeContext())
             {
                 var user = context.Users.First();
@@ -47,7 +50,6 @@ namespace ProjectCoffee.Controllers
                 ViewBag.Shownav = false;
                 ViewBag.CurrentMeeting = DateTime.Now;
                 ViewBag.NextMeeting = DateTime.Now.AddDays(14);
-                return View("AdminPage", user);
             }
         }
 

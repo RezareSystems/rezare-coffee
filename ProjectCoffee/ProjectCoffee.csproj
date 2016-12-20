@@ -291,7 +291,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Home\Testing.cshtml" />
     <Content Include="Views\Home\Report.cshtml" />
-    <Content Include="Views\Home\AdminPage.cshtml" />
+    <Content Include="Views\Shared\AdminPage.cshtml" />
     <Content Include="Views\Shared\UserPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
