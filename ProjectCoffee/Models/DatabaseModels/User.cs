@@ -107,8 +107,9 @@ namespace ProjectCoffee.Models.DatabaseModels
         {
             Guid = user.Guid;
             LastName = user.LastName;
-            WillBeThere = true;
+            WillBeThere = false;
             FirstName = user.FirstName;
+            CoffeeOptionsJson = "[{\"Key\":\"SoyMilk\",\"Value\":0},{\"Key\":\"ExtraShot\",\"Value\":0},{\"Key\":\"Sugar\",\"Value\":0},{\"Key\":\"Vanilla\",\"Value\":0},{\"Key\":\"Hazelnut\",\"Value\":0},{\"Key\":\"Caramel\",\"Value\":0}]";
         }
 
         /// <summary>

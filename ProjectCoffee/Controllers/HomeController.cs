@@ -41,7 +41,7 @@ namespace ProjectCoffee.Controllers
                     foreach (var item in usersList)
                     {
                         var lastDate = adS.FindLastLogonTime(item.Guid);
-                        item.WillBeThere = lastDate >= DateTime.Now.AddMinutes(-15);
+                        item.WillBeThere = lastDate >= DateTime.Today || item.WillBeThere;
                     }
                     viewModel.UserList = usersList;
                     SetupAdmin();
