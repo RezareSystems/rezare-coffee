@@ -116,15 +116,13 @@
     // This angular controller is only for the dropdown
     var app = angular.module('optionsApp', []);
     app.controller('optionsCtrl', function ($scope) {
-        // TODO get extras
+
         var options = [];
 
-        @{ 
-            foreach(var opt in Model.User.CoffeeOptions)
-            {
-                @:options.push[{NameBehind: opt.Key, Count: opt.Value, Name: "Blah"}]
-            }
-        }
+
+        var jsObject = @Html.Raw(Json.Encode(Model.User.CoffeeOptions));
+
+        console.log(jsObject);
 
 
         //var options = [ { NameBehind: "SoyMilk", Name: "Soy Milk", Count: 0 },
@@ -137,28 +135,28 @@
 
 
         $scope.addOptions = function (nameBehind) {
-            var found = $scope.options.find(function (element) {
-                if (element.NameBehind == nameBehind) {
-                    return element;
-                }
-            });
+                var found = $scope.options.find(function (element) {
+                    if (element.NameBehind == nameBehind) {
+                        return element;
+                    }
+                });
 
-            if (found.Count < 2) {
-                found.Count = found.Count + 1;
-            }
-        };
+                if (found.Count < 2) {
+                    found.Count = found.Count + 1;
+                }
+            };
 
         $scope.minusOptions = function (nameBehind) {
-            var found = $scope.options.find(function (element) {
-                if (element.NameBehind == nameBehind) {
-                    return element;
-                }
-            });
+                var found = $scope.options.find(function (element) {
+                    if (element.NameBehind == nameBehind) {
+                        return element;
+                    }
+                });
 
-            if (found.Count > 0) {
-                found.Count = found.Count - 1;
-            }
-        };
+                if (found.Count > 0) {
+                    found.Count = found.Count - 1;
+                }
+            };
     });
 
 
