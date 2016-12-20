@@ -84,12 +84,12 @@ a:hover{
 .footer {
     border: none;
     position: absolute;
-    bottom: 0;
-    right: 1em;
+    bottom: 10;
+    right: 10em;
 }
 .footer_logo {
     width: 15em;
-    margin-right: 1em;
+    margin-right: 10em;
 }
 
 .coffee-dropdown{
