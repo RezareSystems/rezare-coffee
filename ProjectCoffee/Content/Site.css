@@ -81,11 +81,12 @@ a:hover{
     width: 2em;
     margin-right: 1em;
 }
-.footer {
+footer {
     border: none;
     position: center;
     bottom: 10;
     right: .5em;
+    text-align:right;
 }
 .footer_logo {
     width: 15em;
