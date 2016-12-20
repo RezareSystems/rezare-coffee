@@ -87,10 +87,13 @@ namespace ProjectCoffee.Models.DatabaseModels
                 var listOfString = new List<string>();
                 foreach(var cf in CoffeeOptions)
                 {
-                    listOfString.Add($"{cf.Key} - {cf.Value}");
+                    if (cf.Value > 0)
+                    {
+                        listOfString.Add($"{cf.Key} - {cf.Value}");
+                    }
                 }
 
-                return string.Join("\n", listOfString);
+                return string.Join(", ", listOfString);
             }
         }
 
