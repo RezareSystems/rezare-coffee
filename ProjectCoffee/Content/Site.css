@@ -61,10 +61,11 @@ a:hover{
     border-radius: 2px;
     width: 20em;
     color: black;
+    background-color: whitesmoke;
 }
 
 .login_holder button{
-    background-color: lightyellow;
+    background-color: sandybrown;
     border: 0px;
     border-radius: 1px;
     padding: 0.5em;
@@ -80,64 +81,98 @@ a:hover{
     width: 2em;
     margin-right: 1em;
 }
-
 .footer {
     border: none;
-    position: absolute;
+    position: center;
     bottom: 10;
-    right: 10em;
+    right: .5em;
 }
 .footer_logo {
     width: 15em;
-    margin-right: 10em;
+    margin-right: .5em;
+    margin-left: auto;
 }
-
 .coffee-dropdown{
     width: 100%;
+    text-align: left;
+    background-color: whitesmoke;
+    border: 0px;
+    border-radius: 1px;
+    padding: 1em;
+    margin-top:0.5em;
+    width: 35em;
 }
-
-.user-table{
-    width: 100%;
+.user-container {
+    text-align: left;
+    background-color: whitesmoke;
+    border: 0px;
+    border-radius: 1px;
+    padding: 1em;
+    margin-top:0.5em;
+    width: 35em;
+     font-size: medium;
+    font-family: Arial;
+}
+.user-table {
+    text-align: left;
+    background-color: whitesmoke;
+    background-size: 40px;
+    border: 2em;
+    border-radius: 2em;
+    padding: 1em;
+    margin-top:0.5em;
+    width: 35em;
+    font-size: medium;
+    font-family: Arial;
 }
 .generate_button {
     text-align: center;
-    background-color: lightgoldenrodyellow;
+    background-color: sandybrown;
     border: 0px;
-    border-radius: 1px;
+    border-radius: 2em;
     padding: 1em;
     margin-top:0.5em;
-    width: 30em;
+    width: 30em;  
+    font-size: medium;
+    font-family: Arial;
 }
 .next_meeting {
-    text-align: left;
-    background-color: antiquewhite;
+    text-align: center;
+    background-color: sandybrown;
     border: 0px;
-    border-radius: 1px;
+    border-radius: 2em;
     padding: 1em;
     margin-top:0.5em;
     width: 30em;
+    font-size: medium;
+    font-family: Arial;
 }
 .admin_table {
     text-align: center;
-    background-color: sandybrown;
+    background-color: lightsteelblue;
+    border-radius: 2em;
     padding: 1em;
     margin-top:0.5em;
     width: 75em;
     table-layout: auto;
+     font-size: medium;
+    font-family: Arial;
 }
 .coffee_table {
     text-align: left;
-    background-color: sandybrown;
+    border-radius: 2em;
     padding: 1em;
     margin-top:0em;
-    width: 60em;
+    width: 50em;
     table-layout: auto;
+    margin-left: 10em;
 }
 .coffee_headers {
     text-align: left;
-    background-color: sandybrown;
+    background-color: lightsteelblue;
     padding: 1em;
     margin-top:0em;
-    width: 60em;
+    width: 50em;
     table-layout: auto;
+    margin-left: 10em;
 }
