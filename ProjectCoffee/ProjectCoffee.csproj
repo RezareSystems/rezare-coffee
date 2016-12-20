@@ -232,6 +232,7 @@
     <Compile Include="Models\DatabaseModels\GlobalInformation.cs" />
     <Compile Include="Models\DatabaseModels\User.cs" />
     <Compile Include="Models\OtherModels\ReportStruct.cs" />
+    <Compile Include="Models\OtherModels\UserAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ActiveDirectoryService.cs" />
     <Compile Include="Startup.cs" />

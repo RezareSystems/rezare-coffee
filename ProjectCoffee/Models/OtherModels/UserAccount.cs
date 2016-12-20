@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
-namespace ProjectCoffee.Models
+namespace ProjectCoffee.Models.OtherModels
 {
     public class UserAccount
     {

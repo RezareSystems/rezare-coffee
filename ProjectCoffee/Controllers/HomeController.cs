@@ -1,4 +1,5 @@
 ﻿using ProjectCoffee.Models;
+using ProjectCoffee.Models.OtherModels;
 using ProjectCoffee.Services;
 using System;
 using System.Collections.Generic;
