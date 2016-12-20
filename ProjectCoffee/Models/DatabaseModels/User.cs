@@ -76,6 +76,24 @@ namespace ProjectCoffee.Models.DatabaseModels
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [NotMapped]
+        public string GetStringCoffeeOptions
+        {
+            get
+            {
+                var listOfString = new List<string>();
+                foreach(var cf in CoffeeOptions)
+                {
+                    listOfString.Add($"{cf.Key} - {cf.Value}");
+                }
+
+                return string.Join("\n", listOfString);
+            }
+        }
+
 
         /// <summary>
         /// Creates a new Database user from an Active Directory User (basic)

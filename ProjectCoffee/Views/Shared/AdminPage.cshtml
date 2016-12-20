@@ -32,7 +32,7 @@
             <tr>
                 <td class="name">@item.FirstName</td>
                 <td class="coffee_type">@(item.Drink == null? string.Empty : item.Drink.Name )</td>
-                <td class="coffee_options">@item.CoffeeOptions</td>
+                <td class="coffee_options">@item.GetStringCoffeeOptions</td>
                 <td class="is_here">@item.WillBeThere</td>
             </tr>
         }
