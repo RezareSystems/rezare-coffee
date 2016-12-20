@@ -114,9 +114,17 @@ namespace ProjectCoffee.Controllers
         public ActionResult Report(string confirmDate)
         {
             var dbS = new DatabaseService();
-            var usersList = dbS.GetAllUsers().Where(p => p.WillBeThere == true && p.Drink != null).ToList();
+            var adS = new ActiveDirectoryService();
+            var usersList = dbS.GetAllUsers().Where(p => p.Drink != null).ToList();
             var reports = new List<ReportStruct>();
-            
+
+            // Filter for active users
+            foreach (var item in usersList)
+            {
+                var lastDate = adS.FindLastLogonTime(item.Guid);
+                item.WillBeThere = lastDate >= DateTime.Today || item.WillBeThere;
+            }
+
             foreach (var user in usersList)
             {
                 int count = usersList.Count(u => u.FirstName == user.FirstName);
