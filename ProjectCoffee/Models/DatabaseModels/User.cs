@@ -17,7 +17,9 @@ namespace ProjectCoffee.Models.DatabaseModels
         /// The ID of the record in our database
         /// </summary>
         public int Id { get; set; }
-       
+
+        [ForeignKey("Drink")]
+        public int? DrinkId { get; set; }
         /// <summary>
         /// The ID of the record in Active Directory
         /// </summary>
@@ -36,7 +38,7 @@ namespace ProjectCoffee.Models.DatabaseModels
         /// <summary>
         /// The drink the user wants ordered for them
         /// </summary>
-        public DrinkType Drink { get; set; }
+        public virtual DrinkType Drink { get; set; }
 
         /// <summary>
         /// The user will be at the next meeting
