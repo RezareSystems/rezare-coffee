@@ -6,7 +6,7 @@
 
 
 <div class="user-container">
-    <p/>
+    <p />
     <table>
         <tr>
             <td><h2 style="display:inline">Hi</h2></td>
@@ -68,13 +68,18 @@
                 @Html.CheckBoxFor(m => m.User.WillBeThere)&nbsp;&nbsp;&nbsp;
             </td>
             <td>
-                <label id="attendlabel" style="cursor: pointer;">I will be attending the team meeting @if (Model.Date.Date == DateTime.Now.Date)
-                { <span>today</span> }
-                else { <span>on @Model.Date.ToString("dd/MM/yyyy") </span>}</label>
+                <label id="attendlabel" style="cursor: pointer;">
+                    I will be attending the team meeting @if (Model.Date.Date == DateTime.Now.Date)
+                    { <span>today</span> }
+                    else
+                    { <span>on @Model.Date.ToString("dd/MM/yyyy") </span>}
+                </label>
             </td>
         </tr>
     </table>
 </div>
+
+
 
 @section scripts {
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>

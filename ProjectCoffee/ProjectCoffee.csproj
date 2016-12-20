@@ -292,12 +292,13 @@
     <Content Include="Views\Home\Testing.cshtml" />
     <Content Include="Views\Home\Report.cshtml" />
     <Content Include="Views\Home\AdminPage.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Shared\UserPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Helpers\" />
     <Folder Include="Models\ViewModels\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

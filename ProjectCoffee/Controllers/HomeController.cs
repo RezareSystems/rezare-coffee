@@ -21,6 +21,15 @@ namespace ProjectCoffee.Controllers
         public ActionResult Index()
         {
             // TODO: If the user is logged in, go main page
+            if (Session["Guid"] != null)
+            {
+                return View("UserPage", new UserViewModel
+                {
+                    CoffeeList = new DatabaseService().GetAllDrinkTypes().ToList(),
+                    Date = DateTime.Now,
+                    User = new DatabaseService().GetUser(Session["Guid"].ToString())
+                });
+            }
 
             ViewBag.Title = "Project:Coffee";
             ViewBag.Shownav = false;
@@ -55,14 +64,14 @@ namespace ProjectCoffee.Controllers
                 if (success)
                 {
                     Session["Guid"] = userService.GetGuid(user.UserName);
-                    return RedirectToAction("LoggedIn");
+                    return RedirectToAction("Index");
                 }
                 else
                 {
                     ModelState.AddModelError("", "UserName or Password is wrong");
                 }
             
-            return View("LoginPage");
+            return RedirectToAction("Index");
         }
 
         public ActionResult LoggedIn()
