@@ -38,11 +38,11 @@ namespace ProjectCoffee.Controllers
                     var dbS = new DatabaseService();
                     viewModel.IsAdmin = true;
                     var usersList = dbS.GetAllUsers().ToList();
-                    //foreach (var item in usersList)
-                    //{
-                    //    var lastDate = adS.FindLastLogonTime(item.Guid);
-                    //    item.WillBeThere = lastDate >= DateTime.Now.AddMinutes(-15);
-                    //}
+                    foreach (var item in usersList)
+                    {
+                        var lastDate = adS.FindLastLogonTime(item.Guid);
+                        item.WillBeThere = lastDate >= DateTime.Now.AddMinutes(-15);
+                    }
                     viewModel.UserList = usersList;
                     SetupAdmin();
                 }

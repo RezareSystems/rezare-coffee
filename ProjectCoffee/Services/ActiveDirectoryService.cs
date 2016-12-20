@@ -115,6 +115,19 @@ namespace ProjectCoffee.Services
         }
 
         /// <summary>
+        /// Gets the Username from the Active Directory Guid
+        /// </summary>
+        /// <param name="guid">User Guid</param>
+        /// <returns>The Users username</returns>
+        public string GetUsername(Guid guid)
+        {
+            using(var context = new PrincipalContext(ContextType.Domain, ACTIVE_DIRECTORY_DOMAIN))
+            {
+                return UserPrincipal.FindByIdentity(context, IdentityType.Guid, guid.ToString()).SamAccountName;
+            }
+        }
+
+        /// <summary>
         /// Gets all the users in the ACTIVE_DIRECTORY_GROUP
         /// </summary>
         /// <returns>A list of users (Domain GUID and name)</returns>
@@ -143,7 +156,7 @@ namespace ProjectCoffee.Services
         /// <summary>
         /// Finds the users last logon time over the whole domain
         /// </summary>
-        /// <param name="userId">The SAM username of the user</param>
+        /// <param name="userId">The Guid of the user</param>
         /// <returns>The time the user last logged on / authenticated with AD</returns>
         /// <remarks>Taken from http://stackoverflow.com/questions/19454162/getting-last-logon-time-on-computers-in-active-directory </remarks>
         public DateTime FindLastLogonTime(Guid userId)
@@ -151,10 +164,9 @@ namespace ProjectCoffee.Services
             DirectoryContext context = new DirectoryContext(DirectoryContextType.Domain, ACTIVE_DIRECTORY_DOMAIN);
             DateTime latestLogon = DateTime.MinValue;
             DomainControllerCollection dcc = DomainController.FindAll(context);
+            var username = GetUsername(userId);
             Parallel.ForEach(dcc.Cast<object>(), dc1 =>
             {
-
-
                 DirectorySearcher ds;
                 DomainController dc = (DomainController)dc1;
                 using (ds = dc.GetDirectorySearcher())
@@ -162,8 +174,8 @@ namespace ProjectCoffee.Services
                     try
                     {
                         ds.Filter = String.Format(
-                          "(objectGUID={0})",
-                          userId
+                          "(sAMAccountName={0})",
+                          username
                           );
                         ds.PropertiesToLoad.Add("lastLogon");
                         ds.SizeLimit = 1;
@@ -193,5 +205,6 @@ namespace ProjectCoffee.Services
             });
             return latestLogon;
         }
+
     }
 }
