@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ProjectCoffee.Helpers;
 using ProjectCoffee.Models;
 using ProjectCoffee.Models.DatabaseModels;
 using ProjectCoffee.Services;
@@ -32,8 +33,7 @@ namespace ProjectCoffee.Controllers
                 viewModel.CoffeeList = drinkList;
 
                 viewModel.Date = DateTime.Now;
-
-
+                
                 return View(viewModel);
             }
         }

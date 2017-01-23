@@ -93,6 +93,9 @@ footer {
     margin-right: .5em;
     margin-left: auto;
 }
+#drink-selection-holder, #the-dropdown{
+    display: inline-block;
+}
 .coffee-dropdown{
     width: 100%;
     text-align: left;
@@ -110,8 +113,8 @@ footer {
     border-radius: 1px;
     padding: 1em;
     margin-top:0.5em;
-    width: 35em;
-     font-size: medium;
+    width: auto;
+    font-size: medium;
     font-family: Arial;
 }
 .user-table {
@@ -176,4 +179,9 @@ footer {
     width: 50em;
     table-layout: auto;
     margin-left: 10em;
+}
+
+.secret-click{
+    cursor: pointer !important;
+    font-style: italic;
 }

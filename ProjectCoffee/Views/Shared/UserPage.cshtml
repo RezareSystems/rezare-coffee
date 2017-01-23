@@ -6,80 +6,76 @@
 
 
 <div class="user-container">
-    <p/>
-    <table>
-        <tr>
-            <td>
-                <h2 style="display: inline">Hi</h2></td>
-            <td>&nbsp;</td>
-            <td>
-                <h2 id="editable-header" style="display: inline">@(Model.User.FirstName)</h2></td>
-            <td><input id="hiding-textbox" type="text" style="display: none;"/></td>
-        </tr>
-    </table>
-    <h3>What will you be having?</h3>
+    <h2 style="display: inline">
+        Hey
+        <span id="editable-header" style="display: inline" >@(Model.User.FirstName)</span>
+        <input id="hiding-textbox" type="text" style="display: none;" />
+    </h2>
+            
+    <h3>
+        I've got you down for a 
+        <span id="editable-drink" class="secret-click">@(Model.User.Drink.Name)</span>
+        <div style="display:none" id="drink-selection-holder">
+            @Html.DropDownListFor(m => m.User.DrinkId, new SelectList(Model.CoffeeList, dataValueField: "Id", dataTextField: "Name"), htmlAttributes: new { @id = "coffee-select", @class = "coffee-dropdown", style = "width: 250px;" })
+        </div>
+        with
 
-    <table class="user-table">
-        <tr>
-            <td style="text-align: right">
-                <label for="coffee-select">Pick your drink type:</label>&nbsp;&nbsp;&nbsp;
-            </td>
-            <td>
-                @Html.DropDownListFor(m => m.User.DrinkId, new SelectList(Model.CoffeeList, dataValueField: "Id", dataTextField: "Name"), htmlAttributes: new {@id = "coffee-select", @class = "coffee-dropdown"})
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">&nbsp;</td>
-        </tr>
-        <tr>
-            <td style="text-align: right">
-                <label for="">Options:</label>&nbsp;&nbsp;&nbsp;
-            </td>
-            <td>
-                <div class="dropdown" id="the-dropdown">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Set Options &nbsp;<span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                        <li class="non-closable">
-                            <div class="container" ng-app="optionsApp" ng-controller="optionsCtrl">
-                                <table>
-                                    <tr ng-repeat="x in options">
-                                        <td><a href="javascript:void(0)" ng-click="minusOptions(x.NameBehind)"><span class="glyphicon glyphicon-minus"></span></a></td>
-                                        <td>&nbsp;</td>
-                                        <td>
-                                            {{ x.Count }}
-                                        </td>
-                                        <td>&nbsp;</td>
-                                        <td>
-                                            {{ x.Name }}
-                                        </td>
-                                        <td>&nbsp;</td>
-                                        <td><a href="javascript:void(0)" ng-click="addOptions(x.NameBehind)"><span class="glyphicon glyphicon-plus"></span></a></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">&nbsp;</td>
-        </tr>
-        <tr>
-            <td style="text-align: right">
-                @Html.CheckBoxFor(m => m.User.WillBeThere)&nbsp;&nbsp;&nbsp;
-            </td>
-            <td>
-                <label id="attendlabel" style="cursor: pointer;">I will be attending the team meeting @if (Model.Date.Date == DateTime.Now.Date)
-                                                                                                      {
-                                                                                                          <span>today</span>
-                                                                                                      }
-                                                                                                      else
-                                                                                                      {
-                                                                                                       <span>on @Model.Date.ToString("D") </span>}</label>
-            </td>
-        </tr>
-    </table>
+        
+        @if (Model.User.CoffeeOptions.Any())
+        {
+            <span data-toggle="tooltip" title="@Model.User.GetStringCoffeeOptions" class="secret-click coffee-options">some options.</span>
+        }
+        else
+        {
+            <span class="secret-click coffee-options">no customisations.</span>
+        }
+        <div class="dropdown" id="the-dropdown" style="display:none">
+            <button type="button" id="option-button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Set Options &nbsp;<span class="caret"></span></button>
+            <ul class="dropdown-menu" id="options-dropdown">
+                <li class="non-closable">
+                    <div class="container" ng-app="optionsApp" ng-controller="optionsCtrl">
+                        <table>
+                            <tr ng-repeat="x in options">
+                                <td><a href="javascript:void(0)" ng-click="minusOptions(x.NameBehind)"><span class="glyphicon glyphicon-minus"></span></a></td>
+                                <td>&nbsp;</td>
+                                <td>
+                                    {{ x.Count }}
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>
+                                    {{ x.Name }}
+                                </td>
+                                <td>&nbsp;</td>
+                                <td><a href="javascript:void(0)" ng-click="addOptions(x.NameBehind)"><span class="glyphicon glyphicon-plus"></span></a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </h3>
+    <h4>
+        If you haven't logged in 
+        @if (Model.Date.Date == DateTime.Now.Date)
+        {
+            <span>today</span>
+        }
+        else
+        {
+            <span>on @Model.Date.ToString("dddd") (the @ViewBag.ReadableDate) </span>
+        }
+        you 
+        @if (Model.User.WillBeThere)
+        {
+            <span id="attending-span" class="secret-click">would</span>
+        }
+        else
+        {
+            <span id="attending-span" class="secret-click">would not</span>
+        }
+        like us to order for you.
+    </h4>
 </div>
 
     @if (Model.IsAdmin)
@@ -91,8 +87,26 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script>
     $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        $("#drink-selection-holder").hide();
+
+        $("#attending-span").click(function(){
+            var span = $("#attending-span");
+
+            if(span.html() == "would"){
+                span.html("would not");
+            }else{
+                span.html("would");
+            }
+
+            saveAll();
+        });
+
         $(".coffee-dropdown").select2();
         $(".coffee-dropdown").on("select2:select", function (e) {
+            $("#drink-selection-holder").hide();
+            $("#editable-drink").html($("#coffee-select :selected").text());
+            $("#editable-drink").show();
             saveAll();
         });
 
@@ -106,20 +120,37 @@
 
         $('.non-closable').on('focus click blur', function (e) { e.stopPropagation(); })
 
-        $("#editable-header").dblclick(function () {
-            $("#editable-header").hide();
-            $("#hiding-textbox").val($("#editable-header").text());
-            $("#hiding-textbox").show();
-            $("#hiding-textbox").focus();
+        //$("#editable-header").click(function () {
+        //    $("#editable-header").hide();
+        //    $("#hiding-textbox").val($("#editable-header").text());
+        //    $("#hiding-textbox").show();
+        //    $("#hiding-textbox").focus();
+        //});
+
+        $("#editable-drink").click(function () {
+            $("#editable-drink").hide();
+            $("#drink-selection-holder").show();
         });
 
-        $("#hiding-textbox").focusout(function () {
-            $("#editable-header").show();
-            $("#hiding-textbox").hide();
-            if ($("#hiding-textbox").val() != "") {
-                $("#editable-header").text($("#hiding-textbox").val());
-            }
+        
+        $(".coffee-options").click(function(){
+            $(".coffee-options").hide();
+            $("#the-dropdown").show();
         });
+
+        //$("#hiding-textbox").keydown(function(key){
+        //    if(key.which == 13) // Enter key pressed
+        //        $("#hiding-textbox").focusout();
+        //});
+
+        //$("#hiding-textbox").focusout(function () {
+        //    $("#editable-header").show();
+        //    $("#hiding-textbox").hide();
+        //    if ($("#hiding-textbox").val() != "") {
+        //        $("#editable-header").text($("#hiding-textbox").val());
+        //        saveAll();
+        //    }
+        //});
 
         $("#attendlabel").click(function () {
             var checkbox = $("#User_WillBeThere");
@@ -127,18 +158,51 @@
             saveAll();
         });
 
+        $("html").on("hide.bs.dropdown", function () {
+            $(".coffee-options").show();
+            $("#the-dropdown").hide();
+
+            var hasoptions = false;
+            for(var i = 0; i < options.length; i++)
+                hasoptions = hasoptions | options[i].Count > 0;
+
+            if(hasoptions){
+                $(".coffee-options").html("with some options.");
+            }else{
+                $(".coffee-options").html("with no customisations.");
+            }
+
+            $(".coffee-options").attr("data-original-title", getOptionsString());
+
+            saveAll();
+        });
+
     });
+
+    var getOptionsString = function(){
+        var string = "";
+
+        for(var i = 0; i < options.length; i++){
+            if(options[i].Count > 0){
+                string += " " + options[i].Name + " - " + options[i].Count + ",";
+            }
+        }
+
+        return string.length > 1 ? string.slice(1, string.length -1) : "";
+    }
 
     var saveAll = function () {
         // TODO AJAX CALL to save all data
         var drinkID = $("#coffee-select").val();
         optionsdata = options;
-        var checked = $("#User_WillBeThere").is(":checked");
+        var checked = $("#attending-span").html() == "would";
+        var name = $("#editable-header").html();
         
         var sendData = {
             DrinkID: drinkID,
             Options: optionsdata,
-            IsHere: checked
+            IsHere: checked,
+            Name: name,
         };
 
         $.post('@Url.Action("SaveChanges", "User", null, Request.Url.Scheme)', {data: JSON.stringify(sendData)}, function() {

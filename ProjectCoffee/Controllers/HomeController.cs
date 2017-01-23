@@ -1,4 +1,5 @@
-﻿using ProjectCoffee.Models;
+﻿using ProjectCoffee.Helpers;
+using ProjectCoffee.Models;
 using ProjectCoffee.Models.DatabaseModels;
 using ProjectCoffee.Models.OtherModels;
 using ProjectCoffee.Services;
@@ -46,6 +47,8 @@ namespace ProjectCoffee.Controllers
                     viewModel.UserList = usersList;
                     SetupAdmin(dbS.GetMeeting());
                 }
+
+                ViewBag.ReadableDate = viewModel.Date.GetReadable();
 
                 return View("UserPage", viewModel);
             }

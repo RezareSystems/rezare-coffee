@@ -201,6 +201,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DateTimeExtension.cs" />
     <Compile Include="Migrations\201612190224531_InitialDatabaseSetup.cs" />
     <Compile Include="Migrations\201612190224531_InitialDatabaseSetup.Designer.cs">
       <DependentUpon>201612190224531_InitialDatabaseSetup.cs</DependentUpon>
@@ -296,7 +297,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Helpers\" />
     <Folder Include="Models\ViewModels\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
