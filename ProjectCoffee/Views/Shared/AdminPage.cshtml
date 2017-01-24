@@ -8,7 +8,14 @@
         @*<button onclick="Generate_Report_Actions()">Generate Report</button>*@
         @*This will need to be updated if they change the next meeting date*@
         <span id="generate-report-button">Generate the Coffee Orders</span>
-        for the meeting on @ViewBag.CurrentMeeting.ToString("dddd") (the @ViewBag.ReadableDate of @ViewBag.CurrentMeeting.ToString("MMMM"))
+        for the meeting @if (ViewBag.CurrentMeeting.Date == DateTime.Now.Date)
+        {
+            @: today
+        }
+        else
+        {
+            @: on @ViewBag.CurrentMeeting.ToString("dddd") (the @ViewBag.ReadableDate of @ViewBag.CurrentMeeting.ToString("MMMM")) <span class="lite">[not recommended]</span>
+        }
     </p>
 </div>
 

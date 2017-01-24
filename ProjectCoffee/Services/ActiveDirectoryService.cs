@@ -165,10 +165,9 @@ namespace ProjectCoffee.Services
             DateTime latestLogon = DateTime.MinValue;
             DomainControllerCollection dcc = DomainController.FindAll(context);
             var username = GetUsername(userId);
-            Parallel.ForEach(dcc.Cast<object>(), dc1 =>
-            {
+            foreach (DomainController dc in dcc.Cast<object>()){ 
+            
                 DirectorySearcher ds;
-                DomainController dc = (DomainController)dc1;
                 using (ds = dc.GetDirectorySearcher())
                 {
                     try
@@ -202,7 +201,7 @@ namespace ProjectCoffee.Services
 
                     }
                 }
-            });
+            }
             return latestLogon;
         }
 
