@@ -19,16 +19,15 @@
         <div style="display:none" id="drink-selection-holder">
             @Html.DropDownListFor(m => m.User.DrinkId, new SelectList(Model.CoffeeList, dataValueField: "Id", dataTextField: "Name"), htmlAttributes: new { @id = "coffee-select", @class = "coffee-dropdown", style = "width: 250px;" })
         </div>
-        with
 
         
         @if (Model.User.CoffeeOptions.Any())
         {
-            <span data-toggle="tooltip" title="@Model.User.GetStringCoffeeOptions" class="secret-click coffee-options">some options.</span>
+            <span data-toggle="tooltip" title="@Model.User.GetStringCoffeeOptions" class="secret-click coffee-options">and you've changed it a bit.</span>
         }
         else
         {
-            <span class="secret-click coffee-options">no customisations.</span>
+            <span class="secret-click coffee-options">with absolutely nothing special about it.</span>
         }
         <div class="dropdown" id="the-dropdown" style="display:none">
             <button type="button" id="option-button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Set Options &nbsp;<span class="caret"></span></button>
@@ -168,9 +167,9 @@
                 hasoptions = hasoptions | options[i].Count > 0;
 
             if(hasoptions){
-                $(".coffee-options").html("with some options.");
+                $(".coffee-options").html("and you've changed it a bit.");
             }else{
-                $(".coffee-options").html("with no customisations.");
+                $(".coffee-options").html("with absolutely nothing special about it.");
             }
 
             $(".coffee-options").attr("data-original-title", getOptionsString());
