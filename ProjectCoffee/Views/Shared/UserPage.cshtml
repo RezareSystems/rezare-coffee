@@ -9,20 +9,27 @@
     </h2>
             
     <h3>
-        I've got you down for a 
-        <span id="editable-drink" class="secret-click">@(Model.User.Drink.Name)</span>
+        I've got you down for 
+        <span id="editable-drink" class="secret-click">@if (Model.User.Drink == null)
+        {
+            @: nothing
+        }
+        else
+        {
+            @: a @Model.User.Drink.Name
+        }</span>
         <div style="display:none" id="drink-selection-holder">
             @Html.DropDownListFor(m => m.User.DrinkId, new SelectList(Model.CoffeeList, dataValueField: "Id", dataTextField: "Name"), htmlAttributes: new { @id = "coffee-select", @class = "coffee-dropdown", style = "width: 250px;" })
         </div>
 
         
-        @if (Model.User.CoffeeOptions.Any())
+        @if (Model.User.CoffeeOptions != null && Model.User.CoffeeOptions.Where(o => o.Value > 0).Any())
         {
-            <span data-toggle="tooltip" title="@Model.User.GetStringCoffeeOptions" class="secret-click coffee-options">and you've changed it a bit.</span>
+            @:<span data-toggle="tooltip" title="@Model.User.GetStringCoffeeOptions" class="secret-click coffee-options">and you've changed it a bit.</span>
         }
         else
         {
-            <span class="secret-click coffee-options">with absolutely nothing special about it.</span>
+            @:<span class="secret-click coffee-options">with absolutely nothing special about it.</span>
         }
         <div class="dropdown" id="the-dropdown" style="display:none">
             <button type="button" id="option-button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Set Options &nbsp;<span class="caret"></span></button>
