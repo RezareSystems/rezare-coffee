@@ -1,27 +1,41 @@
 ﻿@model List<ProjectCoffee.Models.OtherModels.ReportStruct>
-<div>
-    @foreach (var item in Model)
-    {
-        <h1>@item.DrinkType.Name (@item.Users.Count)</h1>
-        <ol>
-            @foreach (var user in item.Users)
-            {
-                <li>
-                    @{
-                        var name = "";
-                        if (item.Users.Where(u => u.FirstName == user.FirstName).Count() > 1)
-                        {
-                            name = user.FirstName + " " + user.LastName.Substring(0, 1) + ".";
-                        }
-                        else
-                        {
-                            name = user.FirstName;
-                        }
-                    }
-                    @name
-                    @user.GetStringCoffeeOptions
-                </li>
-            }
-        </ol>
-    }
-</div>
+
+<link href="@Styles.Url("~/Content/print.css")" rel="stylesheet" media="print" type="text/css" />
+
+@if (ViewBag.Error != null)
+{
+    <h2>@ViewBag.Error</h2>
+}
+else
+{
+    <h1>Coffee Order @ViewBag.OrderDate</h1>
+    <hr />
+    <div class="report-container">
+        @foreach (var item in Model)
+        {
+            <h3>@item.DrinkType.Name (@item.Users.Count)</h3>
+            <ol>
+                @foreach (var user in item.Users)
+                {
+                    <li>
+                        <span class="bold">
+                            @{
+                                var name = "";
+                                if (item.Users.Where(u => u.FirstName == user.FirstName).Count() > 1)
+                                {
+                                    name = user.FirstName + " " + user.LastName.Substring(0, 1) + ".";
+                                }
+                                else
+                                {
+                                    name = user.FirstName;
+                                }
+                            }
+                            @name
+                        </span>
+                        <span class="lite">@user.GetStringCoffeeOptions</span>
+                    </li>
+                            }
+            </ol>
+                            }
+    </div>
+}

@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="SHORTCUT ICON" href="~/Content/img/favicon.ico" />
 
 </head>
-<body>
-    @if (ViewBag.ShowNav == null || ViewBag.ShowNav)
+<body @if (ViewBag.ShowNav == null || ViewBag.ShowNav) { @: style="padding-top: 50px;"
+       } >
+@if (ViewBag.ShowNav == null || ViewBag.ShowNav)
     {
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -44,6 +47,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("https://code.jquery.com/ui/1.12.1/jquery-ui.min.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>

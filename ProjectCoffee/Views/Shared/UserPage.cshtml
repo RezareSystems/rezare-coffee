@@ -1,4 +1,5 @@
-﻿@model ProjectCoffee.Controllers.UserViewModel
+﻿@using ProjectCoffee.Services;
+@model ProjectCoffee.Controllers.UserViewModel
 
 @{
     ViewBag.Title = "User Page";
@@ -256,6 +257,58 @@
     });
 
 
-</script>    
+</script>   
+
+    @if (new ActiveDirectoryService().IsAdmin(Model.User))
+    {
+        <script>
+
+            $(function () {
+                $("#edit-date").click(function () {
+                    $("#edit-date").hide();
+                    $("#meeting-container").show();
+                });
+
+                $("#confirm-popup").dialog({
+                    autoOpen: false,
+                    title: "Are you sure? Like really sure?",
+                    modal: true
+                });
+
+                $("#generate-report-button").click(function(){
+                    $("#confirm-popup").dialog("open");
+                });
+
+                $("#confirm-button").click(function() {
+                    Generate_Report_Actions();
+                    $("#confirm-button").unbind("click");
+                    $("#confirm-button").html("Please refresh the page.");
+                    $("#confirm-button").css("cursor", "not-allowed");
+                })
+
+                $("#save-button").click(function(){
+                    $.get("@Url.Action("GetAdminDate", "Home", null, Request.Url.Scheme)", { date: $("#meeting").val() }, function(data){
+                        $("#edit-date").html(data);
+                        $("#edit-date").show();
+                        $("#meeting-container").hide();
+                    });
+
+                });
+            });
+            
+
+            function Generate_Report_Actions()
+            {
+                var tab = window.open("@Url.Action("Report", "Home", null, Request.Url.Scheme)?confirmDate=@Model.Date.ToString("yyyy-MM-dd")&nextMeeting=" + $("#meeting").val(), "_blank");
+                if(tab){
+                    tab.focus();
+                    location.reload();
+                }
+                else{
+                    alert("Please enable popups.");
+                }
+            }
+        </script>
+    }
 }
 

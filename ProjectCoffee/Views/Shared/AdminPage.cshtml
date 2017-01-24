@@ -1,20 +1,32 @@
 ﻿@using ProjectCoffee.Controllers
 @model ProjectCoffee.Controllers.UserViewModel
 
-<div class="generate_button">
+<hr />
+
+<div>
     <p>
         @*<button onclick="Generate_Report_Actions()">Generate Report</button>*@
         @*This will need to be updated if they change the next meeting date*@
-        @Html.ActionLink("Generate Report", "Report", routeValues: new { confirmDate = Model.Date, nextMeeting = ViewBag.NextMeeting })
-        for the current Meeting at @ViewBag.CurrentMeeting.ToString("D")
+        <span id="generate-report-button">Generate the Coffee Orders</span>
+        for the meeting on @ViewBag.CurrentMeeting.ToString("dddd") (the @ViewBag.ReadableDate of @ViewBag.CurrentMeeting.ToString("MMMM"))
     </p>
 </div>
 
-<div class="next_meeting">
+<div>
 
-    <p>
-        The Next Meeting is Set for <input id="meeting" type="date" value="@ViewBag.NextMeeting.ToString("yyyy-MM-dd")" />
+    <p>We'll setup the next meeting for <span id="edit-date" class="secret-click">@ViewBag.NextMeeting.ToString("MMMM") @ViewBag.ReadableNextMeeting</span>
+    <span id="meeting-container" style="display:none" >
+        <input id="meeting" type="date" value="@ViewBag.NextMeeting.ToString("yyyy-MM-dd")" />
+        <button id="save-button">Save</button>
+    </span>
     </p>
+</div>
+
+<hr style="margin-bottom:0px;"/>
+
+<div id="confirm-popup" class="confirm-popup" style="display:none">
+    <p>Once you've generated the report, there's no going back. It's all on you now.</p>
+    <button id="confirm-button">Show. Me. The. COFFEE.</button>
 </div>
 
 <div class="admin_table">
@@ -33,7 +45,7 @@
         @foreach (var item in Model.UserList)
         {
             <tr>
-                <td class="name">@item.FirstName</td>
+                <td class="name">@item.FirstName@if(Model.UserList.Where(i => i.FirstName == item.FirstName).Count() > 1) { <span> @item.LastName.Substring(0,1)</span>}</td>
                 <td class="coffee_type">@(item.Drink == null? string.Empty : item.Drink.Name )</td>
                 <td class="coffee_options">@item.GetStringCoffeeOptions</td>
                 <td class="is_here">@item.WillBeThere</td>
@@ -44,16 +56,11 @@
     </table>
 </div>
 
+
 <script>
-    function Generate_Report_Actions()
-    {
-        
-        //TODO : Generate the Report
-       
-        //TODO : Update the Current Date to the NextMeeting Date
-        //TODO : Reset all Users status to being here
-    }
-    
+    // IF YOU'RE LOOKING FOR THE JAVASCRIPT IT'S IN THE USERPAGE.CSHTML FILE
 </script>
+
+
 
 

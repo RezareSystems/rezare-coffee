@@ -1,0 +1,26 @@
+﻿h1{
+    font-size: 20pt;
+    padding:0px;
+    margin: 0px;
+}
+
+.report-container{
+    padding-left: 2em;
+}
+
+h3{
+    font-size:12pt;
+}
+
+body{
+    padding: 0px;
+    margin: 0px;
+    font-size: 10pt;
+}
+
+@page{
+    margin: 0px;
+}
+img{
+    display:none;
+}

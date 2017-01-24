@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 
 namespace ProjectCoffee.Controllers
 {
@@ -24,6 +25,8 @@ namespace ProjectCoffee.Controllers
             // TODO: If the user is logged in, go main page
             if (Session["Guid"] != null)
             {
+                ViewBag.Title = "Choose your Coffee";
+
                 var user = new DatabaseService().GetUser(Session["Guid"].ToString());
                 var adS = new ActiveDirectoryService();
                 var dbS = new DatabaseService();
@@ -37,6 +40,8 @@ namespace ProjectCoffee.Controllers
                 var isAdminFlag = adS.IsAdmin(user);
                 if (isAdminFlag)
                 {
+                    ViewBag.Title = "Choose your Coffee | Coffee Admin";
+
                     viewModel.IsAdmin = true;
                     var usersList = dbS.GetAllUsers().ToList();
                     foreach (var item in usersList)
@@ -45,6 +50,17 @@ namespace ProjectCoffee.Controllers
                         item.WillBeThere = lastDate >= DateTime.Today || item.WillBeThere;
                     }
                     viewModel.UserList = usersList;
+                    viewModel.UserList.Sort(new Comparison<User>((user1, user2) =>
+                    {
+                        if (user1.FirstName != user2.FirstName)
+                            return user1.FirstName.CompareTo(user2.FirstName);
+                        else
+                        {
+                            return user1.LastName.CompareTo(user2.LastName);
+                        }
+                    }));
+
+
                     SetupAdmin(dbS.GetMeeting());
                 }
 
@@ -64,6 +80,7 @@ namespace ProjectCoffee.Controllers
             ViewBag.Shownav = false;
             ViewBag.CurrentMeeting = currentMeeting;
             ViewBag.NextMeeting = currentMeeting.AddDays(14);
+            ViewBag.ReadableNextMeeting = currentMeeting.AddDays(14).GetReadable();
         }
 
         public ActionResult Credits()
@@ -74,6 +91,7 @@ namespace ProjectCoffee.Controllers
         [HttpPost]
         public ActionResult Login(UserAccount user)
         {
+            new DatabaseService().GetActiveDirectoryChanges();
             var userService = new ActiveDirectoryService();
             var success = userService.Authenticate(user.UserName, user.Password);
                 if (success)
@@ -121,7 +139,30 @@ namespace ProjectCoffee.Controllers
             var usersList = dbS.GetAllUsers().Where(p => p.Drink != null).ToList();
             var reports = new List<ReportStruct>();
 
-            if (confirmDate.Date != dbS.GetMeeting().Date) return View(reports);
+            ViewBag.OrderDate = confirmDate.ToString("MMMM") + " " + confirmDate.GetReadable() + ", " + confirmDate.ToString("yyyy");
+            ViewBag.Title = "Coffee Order for " + ViewBag.OrderDate;
+            ViewBag.Shownav = false;
+
+            if (Session["Guid"] == null)
+            {
+                ViewBag.Error = "Must be logged in to generate report";
+                ViewBag.Shownav = true;
+                return View(reports);
+            }
+
+            if (!adS.IsAdmin((Guid)Session["Guid"]))
+            {
+                ViewBag.Error = "Must be an admin to generate reports. Sneaky sneaky.";
+                ViewBag.Shownav = true;
+                return View(reports);
+            }
+
+            if (confirmDate.Date != dbS.GetMeeting().Date)
+            {
+                ViewBag.Error = "Cannot Re-generate Report";
+                ViewBag.Shownav = true;
+                return View(reports);
+            }
 
             // Filter for active users
             foreach (var item in usersList)
@@ -155,8 +196,14 @@ namespace ProjectCoffee.Controllers
 
             // Update the next meeting date
             dbS.SetMeeting(nextMeeting);
+            dbS.ClearWillBeThere();
 
             return View(reports);
+        }
+
+        public ActionResult GetAdminDate(DateTime date)
+        {
+            return Content(date.ToString("MMMM") + " " +  date.GetReadable());
         }
     }
 }

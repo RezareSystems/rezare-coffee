@@ -72,5 +72,47 @@ namespace ProjectCoffee.Services
                 coffeeContext.SaveChanges();
             }
         }
+
+        public void ClearWillBeThere()
+        {
+            using (var coffeeContext = new CoffeeContext())
+            {
+                foreach(var user in coffeeContext.Users)
+                {
+                    user.WillBeThere = false;
+                }
+
+                coffeeContext.SaveChanges();
+            }
+        }
+
+        public void GetActiveDirectoryChanges(CoffeeContext context = null)
+        {
+            using (var coffeeContext = context ?? new CoffeeContext())
+            {
+                // Add any new users in Active Directory / Remove old users
+                var users = new ActiveDirectoryService().GetUsers();
+                var dbUsers = coffeeContext.Users.ToList();
+                var notInDb = users.Where(u => !dbUsers.Any(dbu => dbu.Guid == u.Guid)).ToList();
+                var deleteMe = dbUsers.Where(u => !users.Any(adu => adu.Guid == u.Guid));
+
+                coffeeContext.Users.AddRange(notInDb.Select(u => new User(u)));
+                coffeeContext.Users.RemoveRange(deleteMe);
+
+                coffeeContext.SaveChanges();
+                dbUsers = coffeeContext.Users.ToList();
+
+                // Update the rest of the users details
+                foreach (var adUser in users)
+                {
+                    var dbuser = dbUsers.First(u => u.Guid == adUser.Guid);
+                    dbuser.LastName = adUser.LastName;
+                    dbuser.FirstName = adUser.FirstName;
+                    coffeeContext.Users.AddOrUpdate(dbuser);
+                }
+
+                coffeeContext.SaveChanges();
+            }
+        }
     }
 }
