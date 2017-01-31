@@ -26,5 +26,7 @@ namespace ProjectCoffee.Models
         /// The types of drink available for order
         /// </summary>
         public DbSet <DrinkType> DrinkTypes { get; set; }
+
+        public DbSet <CoffeeReport> CoffeeReports { get; set; }
     }
 }

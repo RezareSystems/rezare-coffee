@@ -230,7 +230,16 @@
     <Compile Include="Migrations\201612200039045_Added-ForeignKey-Association-to-Users-Table.Designer.cs">
       <DependentUpon>201612200039045_Added-ForeignKey-Association-to-Users-Table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701310329171_Saving Reports.cs" />
+    <Compile Include="Migrations\201701310329171_Saving Reports.Designer.cs">
+      <DependentUpon>201701310329171_Saving Reports.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701310434538_Added Foreign Key %28GeneratedBy%29.cs" />
+    <Compile Include="Migrations\201701310434538_Added Foreign Key %28GeneratedBy%29.Designer.cs">
+      <DependentUpon>201701310434538_Added Foreign Key %28GeneratedBy%29.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DatabaseModels\CoffeeReport.cs" />
     <Compile Include="Models\OtherModels\AdUser.cs" />
     <Compile Include="Models\CoffeeContext.cs" />
     <Compile Include="Models\DatabaseModels\DrinkType.cs" />
@@ -377,6 +386,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612200039045_Added-ForeignKey-Association-to-Users-Table.resx">
       <DependentUpon>201612200039045_Added-ForeignKey-Association-to-Users-Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701310329171_Saving Reports.resx">
+      <DependentUpon>201701310329171_Saving Reports.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701310434538_Added Foreign Key %28GeneratedBy%29.resx">
+      <DependentUpon>201701310434538_Added Foreign Key %28GeneratedBy%29.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

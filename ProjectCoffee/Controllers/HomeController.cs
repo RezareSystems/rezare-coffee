@@ -42,6 +42,8 @@ namespace ProjectCoffee.Controllers
                 {
                     ViewBag.Title = "Choose your Coffee | Coffee Admin";
 
+                    ViewBag.PreviousReport = dbS.GetLastReport();
+
                     viewModel.IsAdmin = true;
                     var usersList = dbS.GetAllUsers().ToList();
                     foreach (var item in usersList)
@@ -137,7 +139,7 @@ namespace ProjectCoffee.Controllers
             var dbS = new DatabaseService();
             var adS = new ActiveDirectoryService();
             var usersList = dbS.GetAllUsers().Where(p => p.Drink != null).ToList();
-            var reports = new List<ReportStruct>();
+            var coffeereport = new CoffeeReport();
 
             ViewBag.OrderDate = confirmDate.ToString("MMMM") + " " + confirmDate.GetReadable() + ", " + confirmDate.ToString("yyyy");
             ViewBag.Title = "Coffee Order for " + ViewBag.OrderDate;
@@ -147,21 +149,21 @@ namespace ProjectCoffee.Controllers
             {
                 ViewBag.Error = "Must be logged in to generate report";
                 ViewBag.Shownav = true;
-                return View(reports);
+                return View(coffeereport);
             }
 
             if (!adS.IsAdmin((Guid)Session["Guid"]))
             {
                 ViewBag.Error = "Must be an admin to generate reports. Sneaky sneaky.";
                 ViewBag.Shownav = true;
-                return View(reports);
+                return View(coffeereport);
             }
 
             if (confirmDate.Date != dbS.GetMeeting().Date)
             {
                 ViewBag.Error = "Cannot Re-generate Report";
                 ViewBag.Shownav = true;
-                return View(reports);
+                return View(coffeereport);
             }
 
             // Filter for active users
@@ -179,26 +181,69 @@ namespace ProjectCoffee.Controllers
                     user.FirstName = $"{user.FirstName} {user.LastName.Substring(0, 1)}.";
                 }
 
-                var report = reports.FirstOrDefault(p => p.DrinkType.Name == user.Drink?.Name);
+                var tempReports = coffeereport.Report;
+                var report = tempReports.FirstOrDefault(p => p.DrinkTypeId == user.Drink?.Id);                
                 if (report != null)
                 {
-                    report.Users.Add(user);
+                    report.Users.Add(new UserEntry { FirstName = user.FirstName, LastName = user.LastName, Options = user.CoffeeOptions, UserId = user.Id });
                 }
                 else
                 {
-                    reports.Add(new ReportStruct
+                    tempReports.Add(new ReportStruct
                     {
-                        DrinkType = user.Drink,
-                        Users = new List<User>{ user}
+                        DrinkTypeId = user.Drink.Id,
+                        DrinkName = user.Drink.Name,
+                        Users = new List<UserEntry> { new UserEntry { FirstName = user.FirstName, LastName = user.LastName, Options = user.CoffeeOptions, UserId = user.Id } }
                     });           
                 }
+                coffeereport.Report = tempReports;
             }
+
+            coffeereport.GeneratedOn = DateTime.Now;
+            coffeereport.GeneratedFor = confirmDate;
+            //coffeereport.GeneratedBy = dbS.GetUser(Session["Guid"].ToString());
+            coffeereport.GeneratedBy_Id = dbS.GetUser(Session["Guid"].ToString()).Id;
+
+            dbS.SaveReport(coffeereport);
+            coffeereport.GeneratedBy = dbS.GetUser(Session["Guid"].ToString());
 
             // Update the next meeting date
             dbS.SetMeeting(nextMeeting);
             dbS.ClearWillBeThere();
 
-            return View(reports);
+            return View(coffeereport);
+        }
+
+        public ActionResult ReportById(int id)
+        {
+            var dbS = new DatabaseService();
+            var adS = new ActiveDirectoryService();
+            CoffeeReport coffeereport = null;
+
+            if (Session["Guid"] == null)
+            {
+                ViewBag.Error = "Must be logged in to generate report";
+                ViewBag.Shownav = true;
+                return View("Report", coffeereport);
+            }
+
+            if (!adS.IsAdmin((Guid)Session["Guid"]))
+            {
+                ViewBag.Error = "Must be an admin to generate reports. Sneaky sneaky.";
+                ViewBag.Shownav = true;
+                return View("Report", coffeereport);
+            }
+
+            coffeereport = dbS.GetReport(id);
+
+            if (coffeereport == null)
+            {
+                ViewBag.Error = "That report doesn't exist";
+                ViewBag.Shownav = true;
+                return View("Report", coffeereport);
+            }
+
+            return View("Report", coffeereport);
         }
 
         public ActionResult GetAdminDate(DateTime date)

@@ -27,6 +27,11 @@
         <button id="save-button">Save</button>
     </span>
     </p>
+
+    @if(ViewBag.PreviousReport != null)
+    {
+        <p>The last report was for <a href="@Url.Action("ReportById", "Home", new { id = ViewBag.PreviousReport.Id })">@ViewBag.PreviousReport.GeneratedFor.ToString("yyyy-MM-dd")</a></p>
+    }
 </div>
 
 <hr style="margin-bottom:0px;"/>

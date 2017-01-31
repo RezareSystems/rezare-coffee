@@ -52,6 +52,14 @@ namespace ProjectCoffee.Services
             }
         }
 
+        public CoffeeReport GetLastReport()
+        {
+            using (var coffeeContext = new CoffeeContext())
+            {
+                return coffeeContext.CoffeeReports.ToList().LastOrDefault();
+            }
+        }
+
         public DateTime GetMeeting()
         {
             using(var coffeeContext = new CoffeeContext())
@@ -112,6 +120,24 @@ namespace ProjectCoffee.Services
                 }
 
                 coffeeContext.SaveChanges();
+            }
+        }
+
+        public void SaveReport(CoffeeReport coffeereport)
+        {
+            using (var coffeeContext = new CoffeeContext())
+            {
+                coffeeContext.CoffeeReports.Add(coffeereport);
+
+                coffeeContext.SaveChanges();
+            }
+        }
+
+        public CoffeeReport GetReport(int id)
+        {
+            using (var coffeeContext = new CoffeeContext())
+            {
+                return coffeeContext.CoffeeReports.Include(r => r.GeneratedBy).FirstOrDefault(r => r.Id == id);
             }
         }
     }
