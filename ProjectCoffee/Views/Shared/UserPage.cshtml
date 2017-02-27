@@ -67,10 +67,10 @@
         {
             <span>on @Model.Date.ToString("dddd") (the @ViewBag.ReadableDate) </span>
         }
-        you 
+        by 9:30am you 
         @if (Model.User.WillBeThere)
         {
-            <span id="attending-span" class="secret-click">would</span>
+            <span id="attending-span" class="secret-click">would still</span>
         }
         else
         {
@@ -95,10 +95,10 @@
         $("#attending-span").click(function(){
             var span = $("#attending-span");
 
-            if(span.html() == "would"){
+            if(span.html() == "would still"){
                 span.html("would not");
             }else{
-                span.html("would");
+                span.html("would still");
             }
 
             saveAll();
