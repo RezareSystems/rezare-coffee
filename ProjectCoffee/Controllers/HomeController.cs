@@ -161,7 +161,13 @@ namespace ProjectCoffee.Controllers
 
             if (confirmDate.Date != dbS.GetMeeting().Date)
             {
-                ViewBag.Error = "Cannot Re-generate Report";
+                CoffeeReport rep = new DatabaseService().GetReport(confirmDate);
+                ViewBag.Error = "Cannot Re-generate Report.";
+                if (rep != null)
+                {
+                    ViewBag.Error += "To view the generated report go https://coffee.rezare.co.nz/Home/ReportById/" + rep.Id;
+                }
+
                 ViewBag.Shownav = true;
                 return View(coffeereport);
             }
@@ -179,6 +185,11 @@ namespace ProjectCoffee.Controllers
                 if (count > 1)
                 {
                     user.FirstName = $"{user.FirstName} {user.LastName.Substring(0, 1)}.";
+                }
+
+                if (!user.WillBeThere)
+                {
+                    continue;
                 }
 
                 var tempReports = coffeereport.Report;

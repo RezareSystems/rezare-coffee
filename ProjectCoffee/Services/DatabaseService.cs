@@ -102,7 +102,7 @@ namespace ProjectCoffee.Services
                 var users = new ActiveDirectoryService().GetUsers();
                 var dbUsers = coffeeContext.Users.ToList();
                 var notInDb = users.Where(u => !dbUsers.Any(dbu => dbu.Guid == u.Guid)).ToList();
-                var deleteMe = dbUsers.Where(u => !users.Any(adu => adu.Guid == u.Guid));
+                var deleteMe = dbUsers.Where(u => !users.Any(adu => adu.Guid == u.Guid)).ToList();
 
                 coffeeContext.Users.AddRange(notInDb.Select(u => new User(u)));
                 coffeeContext.Users.RemoveRange(deleteMe);
@@ -138,6 +138,14 @@ namespace ProjectCoffee.Services
             using (var coffeeContext = new CoffeeContext())
             {
                 return coffeeContext.CoffeeReports.Include(r => r.GeneratedBy).FirstOrDefault(r => r.Id == id);
+            }
+        }
+
+        public CoffeeReport GetReport(DateTime generatedTime)
+        {
+            using (var coffeeContext = new CoffeeContext())
+            {
+                return coffeeContext.CoffeeReports.SingleOrDefault(r => r.GeneratedOn == generatedTime);
             }
         }
     }
