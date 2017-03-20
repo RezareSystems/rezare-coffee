@@ -203,6 +203,7 @@ footer {
 .secret-click:hover{
     background-color: #873a00;
     color: whitesmoke;
+    text-decoration:none;
 }
 
 hr{
