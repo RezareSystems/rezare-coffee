@@ -2,7 +2,6 @@
 using ProjectCoffee.Models;
 using ProjectCoffee.Models.DatabaseModels;
 using ProjectCoffee.Models.OtherModels;
-using ProjectCoffee.Models.ViewModels;
 using ProjectCoffee.Services;
 using System;
 using System.Collections.Generic;
@@ -146,6 +145,16 @@ namespace ProjectCoffee.Controllers
             ViewBag.Title = "Coffee Order for " + ViewBag.OrderDate;
             ViewBag.Shownav = false;
 
+            // Queue emails for those who said they were going to be here (even if logged off)
+            foreach(var user in usersList)
+            {
+                if (user.WillBeThere)
+                {
+                    var reminder = dbS.CreateReminder(user);
+                    Hangfire.BackgroundJob.Schedule(() => EmailHelper.SendReminder(reminder), TimeSpan.FromDays(7));
+                }
+            }
+
             if (Session["Guid"] == null)
             {
                 ViewBag.Error = "Must be logged in to generate report";
@@ -266,13 +275,13 @@ namespace ProjectCoffee.Controllers
         /// <summary>
         /// Sets the flag to say a user will be here. (Guid sent in email).
         /// </summary>
-        /// <param name="reminderGuid">The guid of the reminder</param>
+        /// <param name="reminderId">The guid of the reminder</param>
         /// <returns>An OK view</returns>
-        public ActionResult ReminderConfirm(Guid reminderGuid)
+        public ActionResult ReminderConfirm(Guid reminderId)
         {
             // Find the reminder
             var dbs = new DatabaseService();
-            var reminder = dbs.GetReminder(reminderGuid);
+            var reminder = dbs.GetReminder(reminderId);
 
             if(reminder == null)
             {

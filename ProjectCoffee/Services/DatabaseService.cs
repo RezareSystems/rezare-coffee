@@ -187,5 +187,22 @@ namespace ProjectCoffee.Services
                 coffeeContext.SaveChanges();
             }
         }
+
+        public Reminder CreateReminder(User user)
+        {
+            using (var coffeeContext = new CoffeeContext())
+            {
+                var reminder = new Reminder()
+                {
+                    User = user,
+                    CreatedOn = DateTime.UtcNow,
+                    Id = new Guid()
+                };
+
+                coffeeContext.Reminders.Add(reminder);
+                coffeeContext.SaveChanges();
+                return reminder;
+            }
+        }
     }
 }
