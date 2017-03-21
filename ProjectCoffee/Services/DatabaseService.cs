@@ -192,11 +192,12 @@ namespace ProjectCoffee.Services
         {
             using (var coffeeContext = new CoffeeContext())
             {
+                var dbUser = coffeeContext.Users.Include(u => u.Drink).SingleOrDefault(u => u.Id == user.Id);
                 var reminder = new Reminder()
                 {
-                    User = user,
+                    User = dbUser,
                     CreatedOn = DateTime.UtcNow,
-                    Id = new Guid()
+                    Id = Guid.NewGuid()
                 };
 
                 coffeeContext.Reminders.Add(reminder);
