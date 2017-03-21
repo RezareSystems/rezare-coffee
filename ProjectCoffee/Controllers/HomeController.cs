@@ -2,6 +2,7 @@
 using ProjectCoffee.Models;
 using ProjectCoffee.Models.DatabaseModels;
 using ProjectCoffee.Models.OtherModels;
+using ProjectCoffee.Models.ViewModels;
 using ProjectCoffee.Services;
 using System;
 using System.Collections.Generic;
@@ -260,6 +261,35 @@ namespace ProjectCoffee.Controllers
         public ActionResult GetAdminDate(DateTime date)
         {
             return Content(date.ToString("MMMM") + " " +  date.GetReadable());
+        }
+
+        /// <summary>
+        /// Sets the flag to say a user will be here. (Guid sent in email).
+        /// </summary>
+        /// <param name="reminderGuid">The guid of the reminder</param>
+        /// <returns>An OK view</returns>
+        public ActionResult ReminderConfirm(Guid reminderGuid)
+        {
+            // Find the reminder
+            var dbs = new DatabaseService();
+            var reminder = dbs.GetReminder(reminderGuid);
+
+            if(reminder == null)
+            {
+                ViewBag.Error = "That Reminder Code doesn't exist. Please manually set your coffee preferences.";
+                ViewBag.ShowNav = true;
+                return View("Report", null);
+            }
+
+            // Set WillBeHere
+            dbs.SetWillBeThere(reminder.User, reminder);
+
+            var nextMeeting = dbs.GetMeeting();
+
+            ViewBag.Shownav = false;
+            ViewBag.NextMeeting = nextMeeting.ToString("dddd") + " (" + nextMeeting.GetReadable() + nextMeeting.ToString(" MMMM") + ")";
+
+            return View("ReminderConfirm", reminder);
         }
     }
 }

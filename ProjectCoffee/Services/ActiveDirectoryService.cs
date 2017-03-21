@@ -205,5 +205,18 @@ namespace ProjectCoffee.Services
             return latestLogon;
         }
 
+        /// <summary>
+        /// Finds the email address for a user.
+        /// </summary>
+        /// <param name="userId">The Active Directory GUID of the user.</param>
+        /// <returns>The email address of the user or null</returns>
+        public string GetEmail(Guid userId)
+        {
+            using (var context = new PrincipalContext(ContextType.Domain, ACTIVE_DIRECTORY_DOMAIN))
+            {
+                return UserPrincipal.FindByIdentity(context, IdentityType.Guid, userId.ToString())?.EmailAddress;
+            }
+        }
+
     }
 }

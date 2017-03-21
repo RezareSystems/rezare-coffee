@@ -27,6 +27,14 @@ namespace ProjectCoffee.Models
         /// </summary>
         public DbSet <DrinkType> DrinkTypes { get; set; }
 
+        /// <summary>
+        /// Previous Coffee Reports
+        /// </summary>
         public DbSet <CoffeeReport> CoffeeReports { get; set; }
+
+        /// <summary>
+        /// Reminder codes that have been emailed to users
+        /// </summary>
+        public DbSet <Reminder> Reminders { get; set; }
     }
 }

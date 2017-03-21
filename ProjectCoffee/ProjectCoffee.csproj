@@ -238,8 +238,13 @@
     <Compile Include="Migrations\201701310434538_Added Foreign Key %28GeneratedBy%29.Designer.cs">
       <DependentUpon>201701310434538_Added Foreign Key %28GeneratedBy%29.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703210018401_Added Reminders.cs" />
+    <Compile Include="Migrations\201703210018401_Added Reminders.Designer.cs">
+      <DependentUpon>201703210018401_Added Reminders.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseModels\CoffeeReport.cs" />
+    <Compile Include="Models\DatabaseModels\Reminders.cs" />
     <Compile Include="Models\OtherModels\AdUser.cs" />
     <Compile Include="Models\CoffeeContext.cs" />
     <Compile Include="Models\DatabaseModels\DrinkType.cs" />
@@ -247,6 +252,7 @@
     <Compile Include="Models\DatabaseModels\User.cs" />
     <Compile Include="Models\OtherModels\ReportStruct.cs" />
     <Compile Include="Models\OtherModels\UserAccount.cs" />
+    <Compile Include="Models\ViewModels\GoingToBeThereModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ActiveDirectoryService.cs" />
     <Compile Include="Services\DatabaseService.cs" />
@@ -352,10 +358,10 @@
     <Content Include="Views\Home\Report.cshtml" />
     <Content Include="Views\Shared\AdminPage.cshtml" />
     <Content Include="Views\Shared\UserPage.cshtml" />
+    <Content Include="Views\Home\ReminderConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\ViewModels\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
@@ -392,6 +398,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701310434538_Added Foreign Key %28GeneratedBy%29.resx">
       <DependentUpon>201701310434538_Added Foreign Key %28GeneratedBy%29.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703210018401_Added Reminders.resx">
+      <DependentUpon>201703210018401_Added Reminders.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -240,3 +240,12 @@ hr{
 .lite{
     opacity: 0.65;
 }
+
+.reminder-container{
+    margin-top: 25%;
+    margin-bottom: 2em;
+    padding: 2em;
+    border: 3px solid #873a00;
+    border-radius: 10px;
+    background-color: #e9e3de;
+}

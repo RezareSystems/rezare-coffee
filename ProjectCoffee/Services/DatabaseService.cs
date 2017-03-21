@@ -148,5 +148,44 @@ namespace ProjectCoffee.Services
                 return coffeeContext.CoffeeReports.SingleOrDefault(r => r.GeneratedOn == generatedTime);
             }
         }
+
+        public Reminder GetReminder(Guid reminderId)
+        {
+            using (var coffeeContext = new CoffeeContext())
+            {
+                return coffeeContext.Reminders.Include(r => r.User).Include(r => r.User.Drink).SingleOrDefault(r => r.Id == reminderId);
+            }
+        }
+
+        public void SetWillBeThere(User forUser, bool value = true)
+        {
+            using (var coffeeContext = new CoffeeContext())
+            {
+                var user = coffeeContext.Users.SingleOrDefault(u => u.Id == forUser.Id);
+                user.WillBeThere = value;
+                coffeeContext.SaveChanges();
+            }
+        }
+
+        public void SetWillBeThere(User forUser, Reminder reminder)
+        {
+            SetWillBeThere(forUser);
+            using (var coffeeContext = new CoffeeContext())
+            {
+                var dbReminder = coffeeContext.Reminders.Single(r => r.Id == reminder.Id);
+                coffeeContext.Reminders.Remove(dbReminder);
+                coffeeContext.SaveChanges();
+            }
+        }
+        
+        public void ClearOldReminders(DateTime oldestAcceptableDate)
+        {
+            using (var coffeeContext = new CoffeeContext())
+            {
+                var removethese = coffeeContext.Reminders.Where(r => r.CreatedOn < oldestAcceptableDate);
+                coffeeContext.Reminders.RemoveRange(removethese);
+                coffeeContext.SaveChanges();
+            }
+        }
     }
 }
