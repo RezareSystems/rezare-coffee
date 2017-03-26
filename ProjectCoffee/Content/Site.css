@@ -249,3 +249,15 @@ hr{
     border-radius: 10px;
     background-color: #e9e3de;
 }
+
+.custom-checkbox{
+    cursor:pointer;
+}
+
+td.is_here{
+    text-align:center;
+    width:3em;
+}
+tr.not_in_report {
+    background-color: rgba(255,0,0,0.2);
+}

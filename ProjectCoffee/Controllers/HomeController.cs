@@ -132,16 +132,18 @@ namespace ProjectCoffee.Controllers
         /// <summary>
         /// Returns a report of who wants what coffee
         /// </summary>
-        /// <param name="confirmDate">The date for the report. This MUST match the date in the GlobalSettings in order for the report to generate.</param>
+        /// <param name="forDate">The date for the report. This MUST match the date in the GlobalSettings in order for the report to generate.</param>
+        /// <param name="nextMeeting">The date to set the next meeting to</param>
+        /// <param name="userIds">The IDs of the users to included in this report</param>
         /// <returns>A view with the report</returns>
-        public ActionResult Report(DateTime confirmDate, DateTime nextMeeting)
+        public ActionResult Report(DateTime forDate, DateTime nextMeeting, IEnumerable<int> userIds)
         {
             var dbS = new DatabaseService();
             var adS = new ActiveDirectoryService();
             var usersList = dbS.GetAllUsers().Where(p => p.Drink != null).ToList();
             var coffeereport = new CoffeeReport();
 
-            ViewBag.OrderDate = confirmDate.ToString("MMMM") + " " + confirmDate.GetReadable() + ", " + confirmDate.ToString("yyyy");
+            ViewBag.OrderDate = forDate.ToString("MMMM") + " " + forDate.GetReadable() + ", " + forDate.ToString("yyyy");
             ViewBag.Title = "Coffee Order for " + ViewBag.OrderDate;
             ViewBag.Shownav = false;
 
@@ -159,9 +161,9 @@ namespace ProjectCoffee.Controllers
                 return View(coffeereport);
             }
 
-            if (confirmDate.Date != dbS.GetMeeting().Date)
+            if (forDate.Date != dbS.GetMeeting().Date)
             {
-                CoffeeReport rep = new DatabaseService().GetReport(confirmDate);
+                CoffeeReport rep = new DatabaseService().GetReport(forDate);
                 ViewBag.Error = "Cannot Re-generate Report.";
                 if (rep != null)
                 {
@@ -175,8 +177,8 @@ namespace ProjectCoffee.Controllers
             // Filter for active users
             foreach (var item in usersList)
             {
-                var lastDate = adS.FindLastLogonTime(item.Guid);
-                item.WillBeThere = lastDate >= DateTime.Today || item.WillBeThere;
+                if (userIds.Contains(item.Id))
+                    item.WillBeThere = true;
             }
 
             foreach (var user in usersList)
@@ -211,8 +213,7 @@ namespace ProjectCoffee.Controllers
             }
 
             coffeereport.GeneratedOn = DateTime.Now;
-            coffeereport.GeneratedFor = confirmDate;
-            //coffeereport.GeneratedBy = dbS.GetUser(Session["Guid"].ToString());
+            coffeereport.GeneratedFor = forDate;
             coffeereport.GeneratedBy_Id = dbS.GetUser(Session["Guid"].ToString()).Id;
 
             dbS.SaveReport(coffeereport);

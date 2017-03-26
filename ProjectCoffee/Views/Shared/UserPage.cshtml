@@ -258,15 +258,28 @@
 
 
 </script>   
-
+    
     @if (new ActiveDirectoryService().IsAdmin(Model.User))
     {
+        <!-- THESE ARE THE SCRIPTS FOR THE ADMIN PAGE-->
         <script>
 
             $(function () {
                 $("#edit-date").click(function () {
                     $("#edit-date").hide();
                     $("#meeting-container").show();
+                });
+
+                $(".custom-checkbox").click(function(){
+                    if(this.classList.contains("glyphicon-check")){
+                        this.classList.remove("glyphicon-check");
+                        this.classList.add("glyphicon-unchecked");                        
+                        this.parentElement.parentElement.classList.add("not_in_report");
+                    }else{
+                        this.classList.remove("glyphicon-unchecked");
+                        this.classList.add("glyphicon-check");
+                        this.parentElement.parentElement.classList.remove("not_in_report");
+                    }
                 });
 
                 $("#confirm-popup").dialog({
@@ -299,7 +312,7 @@
 
             function Generate_Report_Actions()
             {
-                var tab = window.open("@Url.Action("Report", "Home", null, Request.Url.Scheme)?confirmDate=@Model.Date.ToString("yyyy-MM-dd")&nextMeeting=" + $("#meeting").val(), "_blank");
+                var tab = window.open("@Url.Action("Report", "Home", null, Request.Url.Scheme)?forDate=@Model.Date.ToString("yyyy-MM-dd")&nextMeeting=" + $("#meeting").val() + GetActiveIds(), "_blank");
                 if(tab){
                     tab.focus();
                     location.reload();
@@ -307,6 +320,16 @@
                 else{
                     alert("Please enable popups.");
                 }
+            }
+
+            function GetActiveIds(){
+                var returnList = "";
+                $(".custom-checkbox").each(function(key, item){
+                    var id = parseInt(item.id.replace("user-id-", ""));
+                    returnList += "&userIds=" + id;
+                });
+
+                return returnList;
             }
         </script>
     }

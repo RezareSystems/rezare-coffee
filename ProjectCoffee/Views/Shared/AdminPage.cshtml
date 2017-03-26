@@ -49,19 +49,19 @@
             <th>Name</th>
             <th>Coffee</th>
             <th>Options</th>
-            <th>Is Here</th>
+            <th>Add to Order?</th>
         </tr>
         </thead>
         @*Table Body*@
         <tbody class="coffee_body">
         @foreach (var item in Model.UserList)
         {
-            <tr>
+            <tr class="@(item.WillBeThere ?  "" : "not_in_report")">
                 <td class="name">@item.FirstName@if(Model.UserList.Where(i => i.FirstName == item.FirstName).Count() > 1) { <span> @item.LastName.Substring(0,1)</span>}</td>
                 <td class="coffee_type">@(item.Drink == null? string.Empty : item.Drink.Name )</td>
                 <td class="coffee_options">@item.GetStringCoffeeOptions</td>
-                <td class="is_here">@item.WillBeThere</td>
-            </tr>
+                <td class="is_here"><span id="user-id-@item.Id" class="custom-checkbox glyphicon @(item.WillBeThere ?  "glyphicon-check" : "glyphicon-unchecked") "></span></td>
+</tr>
         }
         </tbody>
 
