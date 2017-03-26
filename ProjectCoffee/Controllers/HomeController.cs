@@ -145,16 +145,6 @@ namespace ProjectCoffee.Controllers
             ViewBag.Title = "Coffee Order for " + ViewBag.OrderDate;
             ViewBag.Shownav = false;
 
-            // Queue emails for those who said they were going to be here (even if logged off)
-            foreach(var user in usersList)
-            {
-                if (user.WillBeThere)
-                {
-                    var reminder = dbS.CreateReminder(user);
-                    Hangfire.BackgroundJob.Schedule(() => EmailHelper.SendReminder(reminder), TimeSpan.FromDays(7));
-                }
-            }
-
             if (Session["Guid"] == null)
             {
                 ViewBag.Error = "Must be logged in to generate report";
