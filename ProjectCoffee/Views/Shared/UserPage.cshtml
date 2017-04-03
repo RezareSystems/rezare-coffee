@@ -273,7 +273,7 @@
                 $(".custom-checkbox").click(function(){
                     if(this.classList.contains("glyphicon-check")){
                         this.classList.remove("glyphicon-check");
-                        this.classList.add("glyphicon-unchecked");                        
+                        this.classList.add("glyphicon-unchecked");
                         this.parentElement.parentElement.classList.add("not_in_report");
                     }else{
                         this.classList.remove("glyphicon-unchecked");
@@ -308,25 +308,41 @@
 
                 });
             });
-            
+
 
             function Generate_Report_Actions()
             {
-                var tab = window.open("@Url.Action("Report", "Home", null, Request.Url.Scheme)?forDate=@Model.Date.ToString("yyyy-MM-dd")&nextMeeting=" + $("#meeting").val() + GetActiveIds(), "_blank");
-                if(tab){
-                    tab.focus();
+                var url = "@Url.Action("Report", "Home", null, Request.Url.Scheme)";
+                var data = {
+                    forDate: "@Model.Date.ToString("yyyy-MM-dd")",
+                    nextMeeting: $("#meeting").val(),
+                    userIds: GetActiveIds(),
+                };
+
+                $.post(url, data, function (data) {
+                    var tab = window.open('about:blank');
+                    with(tab.document)
+                    {
+                        open();
+                        write(data);
+                        close();
+                    }
+                    try{
+                        tab.focus();
+                    }catch (e){
+                        alert("Report generated succeessfully, but the popup was blocked. Please enable popups for future. You can view it by clicking on the link (date) on the admin page.");
+                    }
                     location.reload();
-                }
-                else{
-                    alert("Please enable popups.");
-                }
+                });
             }
 
+
             function GetActiveIds(){
-                var returnList = "";
-                $(".custom-checkbox").each(function(key, item){
+                var returnList = [];
+
+                $(".custom-checkbox.glyphicon-check").each(function(key, item){
                     var id = parseInt(item.id.replace("user-id-", ""));
-                    returnList += "&userIds=" + id;
+                    returnList.push(id);
                 });
 
                 return returnList;

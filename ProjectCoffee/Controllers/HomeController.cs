@@ -128,20 +128,23 @@ namespace ProjectCoffee.Controllers
 
             return RedirectToAction("Index");
         }
-        
+
         /// <summary>
         /// Returns a report of who wants what coffee
         /// </summary>
-        /// <param name="forDate">The date for the report. This MUST match the date in the GlobalSettings in order for the report to generate.</param>
-        /// <param name="nextMeeting">The date to set the next meeting to</param>
-        /// <param name="userIds">The IDs of the users to included in this report</param>
+        /// <param name="request">The request data</param>
         /// <returns>A view with the report</returns>
-        public ActionResult Report(DateTime forDate, DateTime nextMeeting, IEnumerable<int> userIds)
+        [HttpPost]
+        public ActionResult Report(ReportRequest request)
         {
             var dbS = new DatabaseService();
             var adS = new ActiveDirectoryService();
             var usersList = dbS.GetAllUsers().Where(p => p.Drink != null).ToList();
             var coffeereport = new CoffeeReport();
+
+            var forDate = request.forDate;
+            var nextMeeting = request.nextMeeting;
+            var userIds = request.userIds;
 
             ViewBag.OrderDate = forDate.ToString("MMMM") + " " + forDate.GetReadable() + ", " + forDate.ToString("yyyy");
             ViewBag.Title = "Coffee Order for " + ViewBag.OrderDate;
@@ -174,7 +177,7 @@ namespace ProjectCoffee.Controllers
                 return View(coffeereport);
             }
 
-            // Filter for active users
+            // Filter for users in this report
             foreach (var item in usersList)
             {
                 if (userIds.Contains(item.Id))
