@@ -21,7 +21,7 @@
         and 
 
         
-        @if (Model.User.CoffeeOptions != null && Model.User.CoffeeOptions.Where(o => o.Value > 0).Any())
+        @if (Model.User.HasModifications())
         {
             @:<span data-toggle="tooltip" title="@Model.User.GetStringCoffeeOptions" class="secret-click coffee-options">you've changed it a bit.</span>
         }
@@ -35,7 +35,7 @@
                 <li class="non-closable">
                     <div class="container" ng-app="optionsApp" ng-controller="optionsCtrl">
                         <table>
-                            <tr ng-repeat="x in options">
+                            <tr ng-repeat="x in intOptions">
                                 <td><a href="javascript:void(0)" ng-click="minusOptions(x.NameBehind)"><span class="glyphicon glyphicon-minus"></span></a></td>
                                 <td>&nbsp;</td>
                                 <td>
@@ -47,6 +47,17 @@
                                 </td>
                                 <td>&nbsp;</td>
                                 <td><a href="javascript:void(0)" ng-click="addOptions(x.NameBehind)"><span class="glyphicon glyphicon-plus"></span></a></td>
+                            </tr>
+                            <tr ng-repeat="x in boolOptions">
+                                <td><a href="javascript:void(0)" ng-click="toggleOption(x.NameBehind)"><span class="glyphicon glyphicon-{{ x.CheckedText }}"></span></a></td>
+                                <td>&nbsp;</td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>
+                                    {{ x.Name }}
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -163,8 +174,11 @@
             $("#the-dropdown").hide();
 
             var hasoptions = false;
-            for(var i = 0; i < options.length; i++)
-                hasoptions = hasoptions | options[i].Count > 0;
+            for(var i = 0; i < intOptions.length; i++)
+                hasoptions = hasoptions | intOptions[i].Count > 0;
+            
+            for(var i = 0; i < boolOptions.lengthl; i++)
+                hasoptions = hasoptions | boolOptions[i].IsTrue;
 
             if(hasoptions){
                 $(".coffee-options").html("you've changed it a bit.");
@@ -183,10 +197,15 @@
     var getOptionsString = function(){
         var string = "";
 
-        for(var i = 0; i < options.length; i++){
-            if(options[i].Count > 0){
-                string += " " + options[i].Name + " - " + options[i].Count + ",";
+        for(var i = 0; i < intOptions.length; i++){
+            if(intOptions[i].Count > 0){
+                string += " " + intOptions[i].NameBehind + " - " + intOptions[i].Count + ",";
             }
+        }
+
+        for(var i=0; i < boolOptions.length; i++){
+            if(boolOptions[i].IsTrue)
+                string += " " + boolOptions[i].NameBehind + ",";
         }
 
         return string.length > 1 ? string.slice(1, string.length -1) : "";
@@ -195,7 +214,30 @@
     var saveAll = function () {
         // TODO AJAX CALL to save all data
         var drinkID = $("#coffee-select").val();
-        optionsdata = options;
+        optionsdata = [];
+
+        //Add in int options
+        $(intOptions).each(function(index, obj){
+            optionsdata.push({
+                Key: obj.NameBehind,
+                Value: {
+                    Key: "int",
+                    Value: obj.Count.toString()
+                }
+            })
+        });
+
+        //Add in bool options
+        $(boolOptions).each(function(index, obj){
+            optionsdata.push({
+                Key: obj.NameBehind,
+                Value: {
+                    Key: "bool",
+                    Value: obj.IsTrue.toString()
+                }
+            })
+        });
+
         var checked = $("#attending-span").html() == "would";
         var name = $("#editable-header").html();
         
@@ -205,6 +247,9 @@
             IsHere: checked,
             Name: name,
         };
+
+        console.log("SendingBack");
+        console.log(sendData);
 
         $.post('@Url.Action("SaveChanges", "User", null, Request.Url.Scheme)', {data: JSON.stringify(sendData)}, function() {
 
@@ -216,23 +261,30 @@
     var app = angular.module('optionsApp', []);
     app.controller('optionsCtrl', function ($scope) {
 
-        options = [];
+        intOptions = [];
+        boolOptions = [];
+
         var jsObject = @Html.Raw(Json.Encode(Model.User.CoffeeOptions));
 
         console.log(jsObject);
 
         for(var i = 0; i < jsObject.length; i++) {
-            options.push({ NameBehind: jsObject[i].Key, Name: jsObject[i].Key.replace(/([A-Z])/g, ' $1').trim(), Count: jsObject[i].Value })
+            switch(jsObject[i].Value.Key){
+                case "int":
+                    intOptions.push({ NameBehind: jsObject[i].Key, Name: jsObject[i].Key.replace(/([A-Z])/g, ' $1').trim(), Count: parseInt(jsObject[i].Value.Value) }); break;
+                case "bool":
+                    boolOptions.push({ NameBehind: jsObject[i].Key, Name: jsObject[i].Key.replace(/([A-Z])/g, ' $1').trim(), IsTrue: (jsObject[i].Value.Value == 'true'), CheckedText: (jsObject[i].Value.Value == 'true' ? "check" : "unchecked") }); break;
+            }
         }
 
-        console.log(options);
+        console.log(intOptions);
+        console.log(boolOptions);
 
-        $scope.options = options;
+        $scope.intOptions = intOptions;
+        $scope.boolOptions = boolOptions;
         
-
-
         $scope.addOptions = function (nameBehind) {
-                var found = $scope.options.find(function (element) {
+                var found = $scope.intOptions.find(function (element) {
                     if (element.NameBehind == nameBehind) {
                         return element;
                     }
@@ -244,7 +296,7 @@
             };
 
         $scope.minusOptions = function (nameBehind) {
-                var found = $scope.options.find(function (element) {
+                var found = $scope.intOptions.find(function (element) {
                     if (element.NameBehind == nameBehind) {
                         return element;
                     }
@@ -253,7 +305,18 @@
                 if (found.Count > 0) {
                     found.Count = found.Count - 1;
                 }
-            };
+        };
+
+        $scope.toggleOption = function(nameBehind){
+            var found = $scope.boolOptions.find(function (element){
+                if (element.NameBehind == nameBehind){
+                    return element;
+                }
+            });
+
+            found.IsTrue = !found.IsTrue;
+            found.CheckedText = found.IsTrue ? "check" : "unchecked";
+        };
     });
 
 

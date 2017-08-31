@@ -64,11 +64,11 @@ namespace ProjectCoffee.Models.DatabaseModels
         /// The list of Coffee Options for the user
         /// </summary>
         [NotMapped]
-        public List<KeyValuePair<string, int>> CoffeeOptions {
+        public List<KeyValuePair<string, KeyValuePair<string,string>>> CoffeeOptions {
             get
             {
-                if (CoffeeOptionsJson == null) return new List<KeyValuePair<string, int>>();
-                return JsonConvert.DeserializeObject<List<KeyValuePair<string, int>>>(CoffeeOptionsJson);
+                if (CoffeeOptionsJson == null) return new List<KeyValuePair<string, KeyValuePair<string,string>>>();
+                return JsonConvert.DeserializeObject<List<KeyValuePair<string, KeyValuePair<string, string>>>>(CoffeeOptionsJson);
             }
             set
             {
@@ -85,16 +85,28 @@ namespace ProjectCoffee.Models.DatabaseModels
             get
             {
                 var listOfString = new List<string>();
-                foreach(var cf in CoffeeOptions)
-                {
-                    if (cf.Value > 0)
-                    {
-                        listOfString.Add($"{cf.Key} - {cf.Value}");
-                    }
-                }
+                //foreach(var cf in CoffeeOptions)
+                //{
+                //    if (cf.Value > 0)
+                //    {
+                //        listOfString.Add($"{cf.Key} - {cf.Value}");
+                //    }
+                //}
 
                 return string.Join(", ", listOfString);
             }
+        }
+
+        /// <summary>
+        /// This says whether the user has made any modifications to the coffee
+        /// </summary>
+        public bool HasModifications()
+        {
+            // Are any shots / int values > 0?
+
+            // Are any booleans true?
+
+            return true;
         }
 
 
