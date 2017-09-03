@@ -14,7 +14,7 @@ namespace ProjectCoffee.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(ProjectCoffee.Models.CoffeeContext context)
