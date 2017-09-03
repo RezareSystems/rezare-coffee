@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ProjectCoffee.Helpers;
 using ProjectCoffee.Models.OtherModels;
 using System;
 using System.Collections.Generic;
@@ -84,16 +85,7 @@ namespace ProjectCoffee.Models.DatabaseModels
         {
             get
             {
-                var listOfString = new List<string>();
-                //foreach(var cf in CoffeeOptions)
-                //{
-                //    if (cf.Value > 0)
-                //    {
-                //        listOfString.Add($"{cf.Key} - {cf.Value}");
-                //    }
-                //}
-
-                return string.Join(", ", listOfString);
+                return StringHelper.GetCoffeeOptions(CoffeeOptions);
             }
         }
 

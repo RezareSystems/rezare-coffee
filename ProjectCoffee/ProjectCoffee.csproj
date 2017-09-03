@@ -211,6 +211,7 @@
     </Compile>
     <Compile Include="Helpers\DateTimeExtension.cs" />
     <Compile Include="Helpers\EmailHelper.cs" />
+    <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Migrations\201612190224531_InitialDatabaseSetup.cs" />
     <Compile Include="Migrations\201612190224531_InitialDatabaseSetup.Designer.cs">
       <DependentUpon>201612190224531_InitialDatabaseSetup.cs</DependentUpon>

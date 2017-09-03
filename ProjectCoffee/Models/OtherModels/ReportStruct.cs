@@ -1,4 +1,5 @@
-﻿using ProjectCoffee.Models.DatabaseModels;
+﻿using ProjectCoffee.Helpers;
+using ProjectCoffee.Models.DatabaseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,16 +57,7 @@ namespace ProjectCoffee.Models.OtherModels
         {
             get
             {
-                var listOfString = new List<string>();
-                //foreach (var cf in Options)
-                //{
-                //    if (cf.Value > 0)
-                //    {
-                //        listOfString.Add($"{cf.Key} - {cf.Value}");
-                //    }
-                //}
-
-                return string.Join(", ", listOfString);
+                return StringHelper.GetCoffeeOptions(Options);
             }
         }
     }
