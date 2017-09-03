@@ -67,7 +67,16 @@
 
     </h3>
     <h4>
-        If you haven't logged in 
+        Mark me as 
+        @if (Model.User.WillBeThere)
+        {
+            <span id="attending-span" class="secret-click">being there</span>
+        }
+        else
+        {
+            <span id="attending-span" class="secret-click">not being there</span>
+        }
+        if I haven't logged in
         @if (Model.Date.Date == DateTime.Now.Date)
         {
             <span>today</span>
@@ -76,16 +85,7 @@
         {
             <span>on @Model.Date.ToString("dddd") (the @ViewBag.ReadableDate) </span>
         }
-        by 9:30am you 
-        @if (Model.User.WillBeThere)
-        {
-            <span id="attending-span" class="secret-click">would still</span>
-        }
-        else
-        {
-            <span id="attending-span" class="secret-click">would not</span>
-        }
-        like us to order for you.
+        when Vivek orders the coffee.
     </h4>
 </div>
 
@@ -104,10 +104,10 @@
         $("#attending-span").click(function(){
             var span = $("#attending-span");
 
-            if(span.html() == "would still"){
-                span.html("would not");
+            if(span.html() == "being there"){
+                span.html("not being there");
             }else{
-                span.html("would still");
+                span.html("being there");
             }
 
             saveAll();
@@ -238,7 +238,7 @@
             })
         });
 
-        var checked = $("#attending-span").html() == "would";
+        var checked = $("#attending-span").html() == "being there";
         var name = $("#editable-header").html();
         
         var sendData = {
