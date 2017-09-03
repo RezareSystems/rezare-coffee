@@ -256,6 +256,10 @@
     <Compile Include="Migrations\201708310343145_AddedBooleanOptionsToCoffeeOptions.Designer.cs">
       <DependentUpon>201708310343145_AddedBooleanOptionsToCoffeeOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709032153516_Add NoSugar Option.cs" />
+    <Compile Include="Migrations\201709032153516_Add NoSugar Option.Designer.cs">
+      <DependentUpon>201709032153516_Add NoSugar Option.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseModels\CoffeeReport.cs" />
     <Compile Include="Models\DatabaseModels\Reminders.cs" />
@@ -419,6 +423,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708310343145_AddedBooleanOptionsToCoffeeOptions.resx">
       <DependentUpon>201708310343145_AddedBooleanOptionsToCoffeeOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709032153516_Add NoSugar Option.resx">
+      <DependentUpon>201709032153516_Add NoSugar Option.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

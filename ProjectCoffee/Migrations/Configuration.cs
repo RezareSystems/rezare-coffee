@@ -21,7 +21,7 @@ namespace ProjectCoffee.Migrations
         {
             // Populates users from Active Directory
 
-            new DatabaseService().GetActiveDirectoryChanges(context);
+            new DatabaseService().GetActiveDirectoryChanges();
 
         }
     }
