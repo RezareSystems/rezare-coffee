@@ -1,4 +1,5 @@
-﻿using ProjectCoffee.Models.DatabaseModels;
+﻿using ProjectCoffee.Helpers;
+using ProjectCoffee.Models.DatabaseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,22 +51,13 @@ namespace ProjectCoffee.Models.OtherModels
         /// <summary>
         /// The options the user had for the report
         /// </summary>
-        public List<KeyValuePair<string, int>> Options { get; set; }
+        public List<KeyValuePair<string, KeyValuePair<string, string>>> Options { get; set; }
 
         public string GetStringCoffeeOptions
         {
             get
             {
-                var listOfString = new List<string>();
-                foreach (var cf in Options)
-                {
-                    if (cf.Value > 0)
-                    {
-                        listOfString.Add($"{cf.Key} - {cf.Value}");
-                    }
-                }
-
-                return string.Join(", ", listOfString);
+                return StringHelper.GetCoffeeOptions(Options);
             }
         }
     }

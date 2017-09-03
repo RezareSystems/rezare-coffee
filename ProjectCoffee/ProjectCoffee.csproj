@@ -211,6 +211,7 @@
     </Compile>
     <Compile Include="Helpers\DateTimeExtension.cs" />
     <Compile Include="Helpers\EmailHelper.cs" />
+    <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Migrations\201612190224531_InitialDatabaseSetup.cs" />
     <Compile Include="Migrations\201612190224531_InitialDatabaseSetup.Designer.cs">
       <DependentUpon>201612190224531_InitialDatabaseSetup.cs</DependentUpon>
@@ -250,6 +251,10 @@
     <Compile Include="Migrations\201703210018401_Added Reminders.cs" />
     <Compile Include="Migrations\201703210018401_Added Reminders.Designer.cs">
       <DependentUpon>201703210018401_Added Reminders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708310343145_AddedBooleanOptionsToCoffeeOptions.cs" />
+    <Compile Include="Migrations\201708310343145_AddedBooleanOptionsToCoffeeOptions.Designer.cs">
+      <DependentUpon>201708310343145_AddedBooleanOptionsToCoffeeOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseModels\CoffeeReport.cs" />
@@ -411,6 +416,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703210018401_Added Reminders.resx">
       <DependentUpon>201703210018401_Added Reminders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708310343145_AddedBooleanOptionsToCoffeeOptions.resx">
+      <DependentUpon>201708310343145_AddedBooleanOptionsToCoffeeOptions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

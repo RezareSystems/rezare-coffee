@@ -46,13 +46,11 @@ namespace ProjectCoffee.Controllers
             var drinkID = d.DrinkID;
             var IsHere = d.IsHere;
 
-            var newOptions = new List<KeyValuePair<string, int>>();
+            var newOptions = new List<KeyValuePair<string, KeyValuePair<string, string>>>();
 
             foreach (var i in d.Options)
             {
-                int count = 0;
-                int.TryParse(i.Count.ToString(), out count);
-                newOptions.Add(new KeyValuePair<string, int>(i.NameBehind.ToString(), count));
+                newOptions.Add(new KeyValuePair<string, KeyValuePair<string,string>>(i.Key.ToString(), new KeyValuePair<string, string>(i.Value.Key.ToString(), i.Value.Value.ToString())));
             }
 
             var databaseService = new DatabaseService();
