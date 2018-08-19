@@ -114,7 +114,7 @@ namespace ProjectCoffee.Models.DatabaseModels
             WillBeThere = false;
             FirstName = user.FirstName;
             DrinkId = 1;
-            CoffeeOptionsJson = "[{\"Key\":\"SoyMilk\",\"Value\":{\"Key\":\"int\",\"Value\":\"0\"}},{\"Key\":\"ExtraShot\",\"Value\":{\"Key\":\"int\",\"Value\":\"0\"}},{\"Key\":\"Sugar\",\"Value\":{\"Key\":\"int\",\"Value\":\"0\"}},{\"Key\":\"Vanilla\",\"Value\":{\"Key\":\"int\",\"Value\":\"0\"}},{\"Key\":\"Hazelnut\",\"Value\":{\"Key\":\"int\",\"Value\":\"0\"}},{\"Key\":\"Caramel\",\"Value\":{\"Key\":\"int\",\"Value\":\"0\"}},{\"Key\":\"No Sugar\",\"Value\":{\"Key\":\"bool\",\"Value\":\"false\"}}]";
+            CoffeeOptionsJson = "[{\"Key\":\"SoyMilk\",\"Value\":{\"Key\":\"int\",\"Value\":\"0\"}},{\"Key\":\"ExtraShot\",\"Value\":{\"Key\":\"int\",\"Value\":\"0\"}},{\"Key\":\"Sugar\",\"Value\":{\"Key\":\"int\",\"Value\":\"0\"}},{\"Key\":\"Vanilla\",\"Value\":{\"Key\":\"int\",\"Value\":\"0\"}},{\"Key\":\"Hazelnut\",\"Value\":{\"Key\":\"int\",\"Value\":\"0\"}},{\"Key\":\"Caramel\",\"Value\":{\"Key\":\"int\",\"Value\":\"0\"}},{\"Key\":\"No Sugar\",\"Value\":{\"Key\":\"bool\",\"Value\":\"false\"}},{\"Key\":\"Trim\",\"Value\":{\"Key\":\"bool\",\"Value\":\"false\"}},{\"Key\":\"Marshmallows\",\"Value\":{\"Key\":\"bool\",\"Value\":\"false\"}}]";
         }
 
         /// <summary>
