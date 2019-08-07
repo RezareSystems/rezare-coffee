@@ -61,6 +61,7 @@ namespace ProjectCoffee.Controllers
             user.WillBeThere = IsHere;
 
             databaseService.UpdateUser(user);
+
         }
     }
 
