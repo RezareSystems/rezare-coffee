@@ -1,2 +1,2 @@
 # rezare-coffee
-The rezare coffee site
+The rezare coffee site for team meetings.
