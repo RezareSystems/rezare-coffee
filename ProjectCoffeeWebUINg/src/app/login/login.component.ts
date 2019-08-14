@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
  
 @Component({
-    templateUrl: "app/home.html"
+    templateUrl: "./login.component.html"
 })
-export class HomeComponent {
+export class LoginComponent {
  
     constructor(private oauthService: OAuthService) {
     }
@@ -19,8 +19,9 @@ export class HomeComponent {
  
     public get name() {
         let claims = this.oauthService.getIdentityClaims();
+        //console.log(claims);
         if (!claims) return null;
-        return claims.given_name;
+        return '';//claims.given_name;
     }
  
 }
