@@ -19,7 +19,7 @@ export class LoginComponent {
  
     public get name() {
         let claims = this.oauthService.getIdentityClaims();
-        //console.log(claims);
+        console.log(claims);
         if (!claims) return null;
         return '';//claims.given_name;
     }
