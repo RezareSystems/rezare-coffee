@@ -1,0 +1,18 @@
+.extra-count {
+    width: 50px;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    color: white;
+}
+
+button:active {
+    color: #cfcfcf;
+    border: none;
+}
