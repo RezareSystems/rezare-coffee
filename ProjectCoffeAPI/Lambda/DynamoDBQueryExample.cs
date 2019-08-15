@@ -12,67 +12,72 @@ namespace ProjectCoffeAPI.Functions
 {
     public class DynamoDBQueryExample
     {
-        private readonly IDynamoDBContext _dbContext;
         private readonly DynamoDBContext _context;
 
         public DynamoDBQueryExample()
         {
             var credentials = new Amazon.Runtime.StoredProfileAWSCredentials("coffeesite");
             AmazonDynamoDBClient client = new AmazonDynamoDBClient(credentials, RegionEndpoint.APSoutheast2);
-           
+
             _context = new DynamoDBContext(client, new DynamoDBContextConfig { ConsistentRead = true, SkipVersionCheck = true });
         }
 
-        public DynamoDBQueryExample(IDynamoDBContext dbContext)
+        public void InsertTestUser()
         {
-            _dbContext = dbContext;
-            //var context = new DynamoDBContext(client);
-        }
-
-        public void InsertUserData()
-        {
-            //Table table = InitializeClientAndTable();
-
-            //var user = new Document();
-            //user["UserId"] = "bloemj";
-            //user["Name"] = "Janine";
-            //user["Drink"] = "Coffee, no sugar";
-            //table.PutItemAsync(user);
-
-            //user["UserId"] = "danielB";
-            //user["Name"] = "Daniel";
-            //user["Drink"] = "Coffee, no milk";
-            //table.PutItemAsync(user);
+            User newUser = new User
+            {
+                UserId = "test1",
+                Drink = "Latte",
+                Name = "Test"
+            };
+            _context.SaveAsync(newUser);
         }
 
         public async Task<User> GetUser()
         {
-            //Table table = InitializeClientAndTable();
-            //GetItemOperationConfig config = new GetItemOperationConfig
-            //{
-            //    AttributesToGet = new List<string> { "UserId", "Name", "Drink" },
-            //    ConsistentRead = true
-            //};
-
-            //var item = await table.GetItemAsync<User>("bloemj", config);
-            //var jsonItem = item.ToJson();
-
-            //return new User();
-
-
-            User user = await _context.LoadAsync<User>("vivekS");
-            return user;
-
+            return await _context.LoadAsync<User>("vivekS");
         }
 
-        //private Table InitializeClientAndTable()
+        //public async Task<List<User>> GetAllUsersAsync()
         //{
-            
 
-        //    Table table = Table.LoadTable<User>("janineB");
-
-        //    return table;
         //}
+
+        public async Task<bool> UpdateUser(string key) 
+        {
+            //get user from key
+            User updatedUser = await _context.LoadAsync<User>(key);
+
+            if (updatedUser != null)
+            {
+                updatedUser.Drink = "Updated Drink";
+                updatedUser.Name = "Updated Name";
+
+                await _context.SaveAsync(updatedUser);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> DeleteUser(string key)
+        {
+            //get user from key
+            User deleteUser = await _context.LoadAsync<User>(key, new DynamoDBContextConfig
+            {
+                ConsistentRead = true
+            });
+
+            if (deleteUser != null)
+            {
+                await _context.DeleteAsync<User>(deleteUser);
+
+                return true;
+            }
+
+            return false;
+        }
     }
 
     [DynamoDBTable("Users")]
