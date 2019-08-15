@@ -1,13 +1,33 @@
 <div class="w3-display-middle w3-large">
 <p>coffee-select works!</p>
-<div class="selectcoffee">
-    Select your coffee
-  
+<div>
+    <div class="w3-half selectcoffee w3-container">Select your coffee</div>
+    <div class="w3-half selectcoffee w3-container">
         <select class="w3-select" style="width:250px;">
         <option *ngFor="let coffee of coffeeList">
           {{coffee.name}}
         </option>
       </select>
-    
-</div>
+      </div>
+    </div>
+    <div>
+            <div class="w3-half selectcoffee w3-container">Select your cup size</div>
+            <div class="w3-half selectcoffee w3-container">
+                <select class="w3-select" style="width:200px;">
+                <option *ngFor="let cup of cupSize">
+                  {{cup.name}}
+                </option>
+              </select>
+              </div>
+            </div>
+            <div>
+                    <div class="w3-half selectcoffee w3-container">Choose your extras</div>
+                    <div class="w3-half selectcoffee w3-container">
+                        <select class="w3-select" style="width:200px;">
+                        <option *ngFor="let cup of cupSize">
+                          {{cup.name}}
+                        </option>
+                      </select>
+                      </div>
+                    </div>
 </div>     
