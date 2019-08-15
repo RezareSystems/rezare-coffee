@@ -30,7 +30,7 @@ namespace ProjectCoffeAPI
 
             // Add S3 to the ASP.NET Core dependency injection framework.
             services.AddAWSService<Amazon.S3.IAmazonS3>();
-            services.AddSingleton<ICoffeService, CoffeService>();
+            services.AddSingleton<ICoffeeService, CoffeeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
