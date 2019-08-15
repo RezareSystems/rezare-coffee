@@ -1,13 +1,28 @@
 <div class="w3-display-middle w3-large">
-  <div class="selectcoffee">
-      Select your coffee
-    
+<div>
+    <div class="w3-half selectcoffee w3-container">Select your coffee</div>
+    <div class="w3-half selectcoffee w3-container">
         <select class="w3-select" style="width:250px;">
-          <option *ngFor="let coffee of coffeeList" value="{{coffee.code}}">
-            {{coffee.name}}
-          </option>
-        </select>
-        <div class="">
+        <option *ngFor="let coffee of coffeeList">
+          {{coffee.name}}
+        </option>
+      </select>
+      </div>
+    </div>
+    <div>
+            <div class="w3-half selectcoffee w3-container">Select your cup size</div>
+            <div class="w3-half selectcoffee w3-container">
+                <select class="w3-select" style="width:250px;">
+                <option *ngFor="let cup of cupSize">
+                  {{cup.name}}
+                </option>
+              </select>
+              </div>
+            </div>
+           
+  <div>
+      
+        <div class="w3-container">
           <div class="w3-row" *ngFor="let extra of extras" id="extra-{{extra.code}}">
             <div class="w3-col s2">
               <button (click)="decrementExtra(extra.code)">
@@ -16,7 +31,7 @@
             </div>
             <div class="w3-col s8">
               <input type="text" maxlength="1" class="extra-count" value="{{extra.count}}" />
-              <span>{{extra.name}}</span>
+              <span class="extra">{{extra.name}}</span>
             </div>
             <div class="w3-col s2">
               <button (click)="incrementExtra(extra.code)">
@@ -26,4 +41,5 @@
           </div>
         </div>
   </div>
+
 </div>     

@@ -11,11 +11,33 @@
       color:white;
       font-weight: bold;
   }
-  
+
 .selectcoffee{
     display: inline-block;
+    padding: 10px;
 }
-   
+
+logo {
+@media (min-width: 601px){
+width:20px;}
+}
+@media screen and (max-width:40em) {
+    .hide-for-small-only {
+        display: none;
+    }
+    .back {
+        height:100%;
+        background-repeat: repeat;
+    }
+}
+.w3-myfont {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+  }
+  
+  .extra{
+      padding-left: 10px;
+  }
+
  
  
   

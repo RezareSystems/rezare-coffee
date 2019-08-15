@@ -14,11 +14,12 @@ export class CoffeeSelectComponent implements OnInit {
     { name: 'Flat White', code: 'FW' },
     { name: 'Latte', code: 'LT' },
     { name: 'Mocha', code: 'MH' },
-    { name: 'Affogato', code: 'AF' },
-    { name: 'Americano', code: 'AM' },
-    { name: 'Short Black / Espresso', code: 'SB' },
+    { name: 'Vienna', code: 'AF' },
+    { name: 'Macciato', code: 'AM' },
+    { name: 'Short Black', code: 'SB' },
     { name: 'Long Black', code: 'LB' },
-    { name: 'Chai Latte', code: 'CL' }
+    { name: 'Chai Latte', code: 'CL' },
+    { name: 'Cappuccino', code: 'CP' }
   ];
 
   cupSize = [
@@ -28,18 +29,17 @@ export class CoffeeSelectComponent implements OnInit {
 
   milkType = [
     { name: 'Trim', code: 'T' },
-    { name: 'Lite Blue', code: 'LB' },
-    { name: 'Full Cream', code: 'FC' },
-    { name: 'Soy', code: 'S' },
-    { name: 'Almond', code: 'A' },
-    { name: 'Rice', code: 'R' }
+    { name: 'Soy', code: 'S' }
+    
   ];
 
   extras = [
     { name: 'Extra Shot', code: 'ES', count: 0 },
-    { name: 'Vanilla Shot', code: 'V', count: 0 },
-    { name: 'Caramel Shot', code: 'CA', count: 0 },
-    { name: 'Chocolate Shot', code: 'CH', count: 0 },
+    { name: 'Vanilla', code: 'V', count: 0 },
+    { name: 'Caramel', code: 'CA', count: 0 },
+    { name: 'Hazelnut', code: 'CH', count: 0 },
+    { name: 'Honey, Lemon & Ginger', code: 'HLG', count: 0 },
+    { name: 'Sugar', code: 'S', count: 0 }
   ]
 
   selectedDrink;
