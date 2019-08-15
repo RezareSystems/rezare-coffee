@@ -7,9 +7,9 @@
     width: 100%;
     text-align: right;
   }
-  h1 {
+  h1, h2 {
       color:white;
-      font-weight: bold;
+      
   }
 
 .selectcoffee{
@@ -26,17 +26,57 @@ width:20px;}
         display: none;
     }
     .back {
-        height:100%;
-        background-repeat: repeat;
+        width:100%;
+       
+    }
+
+    .heading{
+        display: none;
     }
 }
-.w3-myfont {
-    font-family: "Comic Sans MS", cursive, sans-serif;
+.heading{
+    font-family: 'Pacifico', serif;
+}
+
+.label {
+    font-family: 'Signika', serif;
+    font-size: 20px;
+  }
+
+  h2{
+    font-family: 'Signika', serif;
   }
   
   .extra{
       padding-left: 10px;
   }
+
+  .w3-display-topmiddle{
+    margin-top: 20px;
+  }
+
+  .w3-display {
+    margin-top: 20px;
+  }
+
+  .w3-display-middle{
+    margin-top: 20px;
+  }
+  .list{
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translate(-50%, 0%)
+        
+  }
+  .back{
+    position: fixed;
+  }
+
+ .w3-bar{
+     position: fixed;
+ }
+
 
  
  
