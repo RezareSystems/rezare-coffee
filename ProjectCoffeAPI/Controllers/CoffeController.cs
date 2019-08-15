@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectCoffeAPI.Functions;
 using ProjectCoffeAPI.Models;
 using ProjectCoffeAPI.Services;
 
@@ -23,6 +24,11 @@ namespace ProjectCoffeAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
+            DynamoDBQueryExample example = new DynamoDBQueryExample();
+            var userReturned = example.GetUser("janineB");
+            
+                      
+
             var result = _coffeService.GetUserList();
             return Ok(result);
         }
