@@ -13,6 +13,7 @@ import { CoffeeSelectComponent } from './coffee-select/coffee-select.component';
 import { CoffeeListComponent } from './coffee-list/coffee-list.component';
 import { ApiService } from './services/api-service';
 import { OAuthParseService } from './services/oauth-parse-service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,8 @@ import { OAuthParseService } from './services/oauth-parse-service';
   imports: [
     HttpClientModule,
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     OAuthModule.forRoot({
       resourceServer: {

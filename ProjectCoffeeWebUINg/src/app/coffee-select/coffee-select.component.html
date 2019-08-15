@@ -1,5 +1,8 @@
 <div class="w3-display-middle">
 <div>
+    <h2 class="w3-full">
+      Hey {{name}}<br />Pick a drink to for your dopamine hit!
+    </h2>
     <div class="w3-half selectcoffee w3-container label">Select your coffee</div>
     <div class="w3-half selectcoffee w3-container">
         <select class="w3-select" style="width:200px;">
@@ -10,27 +13,26 @@
       </div>
     </div>
     <div>
-            <div class="w3-half selectcoffee w3-container label">Select your cup size</div>
-            <div class="w3-half selectcoffee w3-container">
-                <select class="w3-select" style="width:200px;">
-                <option *ngFor="let cup of cupSize">
-                  {{cup.name}}
-                </option>
-              </select>
-              </div>
-            </div>
-            <div>
-                    <div class="w3-half selectcoffee w3-container label">Select your milk</div>
-                    <div class="w3-half selectcoffee w3-container">
-                        <select class="w3-select" style="width:200px;">
-                        <option *ngFor="let milk of milkType">
-                          {{milk.name}}
-                        </option>
-                      </select>
-                      </div>
-                    </div>
-    <div>&nbsp;</div>              
-           
+      <div class="w3-half selectcoffee w3-container label">Select your cup size</div>
+      <div class="w3-half selectcoffee w3-container">
+          <select class="w3-select" style="width:200px;" [(ngModel)]="selectedCupSize" >
+          <option *ngFor="let cup of cupSize" [value]="cup.code" [selected]="cup.code == selectedCupSize">
+            {{cup.name}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div>
+      <div class="w3-half selectcoffee w3-container label">Select your milk</div>
+      <div class="w3-half selectcoffee w3-container">
+          <select class="w3-select" style="width:200px;">
+          <option *ngFor="let milk of milkType">
+            {{milk.name}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div>&nbsp;</div>                   
   <div>
         <div class="w3-container">
           <div class="w3-row" *ngFor="let extra of extras" id="extra-{{extra.code}}">

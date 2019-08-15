@@ -14,6 +14,7 @@ export class CoffeeListComponent implements OnInit {
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
+    this.getAll();
   }
 
   getAll() {

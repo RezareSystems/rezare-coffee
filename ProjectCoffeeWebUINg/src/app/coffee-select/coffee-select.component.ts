@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { OAuthParseService } from '../services/oauth-parse-service';
+import { ApiService } from '../services/api-service';
 
 @Component({
   selector: 'app-coffee-select',
@@ -45,9 +47,18 @@ export class CoffeeSelectComponent implements OnInit {
 
   selectedDrink;
 
-  constructor(private oauthService: OAuthService) { }
+  constructor(private oauthService: OAuthService,
+    private parseService: OAuthParseService,
+    private apiService: ApiService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    var userId = this.parseService.getSubject();
+    this.apiService.getUser(userId).subscribe(data => {
+
+    });
+   }
+
+  name = this.parseService.getName();
 
   public incrementExtra(code) {
     for(var i = 0; i < this.extras.length; i++) {

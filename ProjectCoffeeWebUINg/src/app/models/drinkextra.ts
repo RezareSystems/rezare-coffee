@@ -1,4 +1,4 @@
 export class DrinkExtra
 {
-    constructor(public extraCode: string, public extraCount: number) {}
+    constructor(public ExtraCode: string, public ExtraCount: number) {}
 }
