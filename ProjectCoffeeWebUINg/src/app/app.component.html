@@ -1,18 +1,27 @@
 <!--The content below is only a placeholder and can be replaced.-->
-
-
 <div class="w3-display-container">
     <img width="100%" alt="Coffee" src="assets/images/steamingcoffee.gif" class="w3-opacity-max">
     <div class="w3-display-topmiddle w3-container">
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img src="/assets/images/RezareLogo_200w.png" width="55" height="35" class="d-inline-block align-top" alt="">
+    Project Coffee
+  </a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <button *ngIf="isLoggedIn" class="btn btn-secondary text-right">Log Out</button>
+    <button *ngIf="!isLoggedIn" class="btn btn-secondary">Log In</button>
+  </div>
+</nav>
+<div style="text-align:center">
   <h1>
    Rezare Coffee
   </h1>
-  
-</div>
-
-</div>
+  </div>
 <router-outlet></router-outlet>
-
+</div>
 <div class="footer">
   <img alt="Rezare" src="assets/images/RezareLogo.png">
 </div>
