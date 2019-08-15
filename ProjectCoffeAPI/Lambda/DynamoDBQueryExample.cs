@@ -14,9 +14,14 @@ namespace ProjectCoffeAPI.Functions
     public class DynamoDBQueryExample
     {
         private readonly IDynamoDBContext _dbContext;
+        private readonly DynamoDBContext _context;
 
         public DynamoDBQueryExample()
         {
+            var credentials = new Amazon.Runtime.StoredProfileAWSCredentials("coffeesite");
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient(credentials, RegionEndpoint.APSoutheast2);
+           
+            _context = new DynamoDBContext(client, new DynamoDBContextConfig { ConsistentRead = true, SkipVersionCheck = true });
         }
 
         public DynamoDBQueryExample(IDynamoDBContext dbContext)
@@ -43,35 +48,37 @@ namespace ProjectCoffeAPI.Functions
 
         public async Task<User> GetUser()
         {
-            Table table = InitializeClientAndTable();
-            GetItemOperationConfig config = new GetItemOperationConfig
-            {
-                AttributesToGet = new List<string> { "UserId", "Name", "Drink" },
-                ConsistentRead = true
-            };
+            //Table table = InitializeClientAndTable();
+            //GetItemOperationConfig config = new GetItemOperationConfig
+            //{
+            //    AttributesToGet = new List<string> { "UserId", "Name", "Drink" },
+            //    ConsistentRead = true
+            //};
 
-            var item = await table.GetItemAsync("bloemj", config);
-            var jsonItem = item.ToJson();
+            //var item = await table.GetItemAsync<User>("bloemj", config);
+            //var jsonItem = item.ToJson();
 
-            return new User();
+            //return new User();
+
+
+            User user = _context.Load<User>(productId, new DynamoDBContextConfig { ConsistentRead = true, SkipVersionCheck = true });
 
         }
 
         private Table InitializeClientAndTable()
         {
-            var credentials = new Amazon.Runtime.StoredProfileAWSCredentials("coffeesite");
+            
 
-            var client = new AmazonDynamoDBClient(credentials, RegionEndpoint.APSoutheast2);
-
-            Table table = Table.LoadTable(client, "Users");
+            Table table = Table.LoadTable<User>("janineB");
 
             return table;
         }
     }
 
-    [Serializable]
+    [DynamoDBTable("Users")]
     public class User
     {
+        [DynamoDBHashKey]
         public string UserId { get; set; }
         public string Name { get; set; }
         public string Drink { get; set; }
