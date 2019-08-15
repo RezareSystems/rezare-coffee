@@ -9,7 +9,7 @@
   }
   h1 {
       color:white;
-      font-weight: bold;
+      
   }
 
 .selectcoffee{
@@ -27,16 +27,37 @@ width:20px;}
     }
     .back {
         height:100%;
-        background-repeat: repeat;
+       
+    }
+    .heading{
+        display: none;
     }
 }
-.w3-myfont {
-    font-family: "Comic Sans MS", cursive, sans-serif;
+.heading{
+    font-family: 'Pacifico', serif;
+}
+
+.label {
+    font-family: 'Pacifico', serif;
+    font-size: 20px;
   }
   
   .extra{
       padding-left: 10px;
   }
+
+  .w3-display-topmiddle{
+    margin-top: 20px;
+  }
+
+  .w3-display {
+    margin-top: 20px;
+  }
+
+  .w3-display-middle{
+    margin-top: 20px;
+  }
+
 
  
  

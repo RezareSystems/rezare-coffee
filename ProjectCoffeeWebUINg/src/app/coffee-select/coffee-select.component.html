@@ -1,8 +1,8 @@
-<div class="w3-display-middle w3-large">
+<div class="w3-display-middle">
 <div>
-    <div class="w3-half selectcoffee w3-container">Select your coffee</div>
+    <div class="w3-half selectcoffee w3-container label">Select your coffee</div>
     <div class="w3-half selectcoffee w3-container">
-        <select class="w3-select" style="width:250px;">
+        <select class="w3-select" style="width:200px;">
         <option *ngFor="let coffee of coffeeList">
           {{coffee.name}}
         </option>
@@ -10,18 +10,28 @@
       </div>
     </div>
     <div>
-            <div class="w3-half selectcoffee w3-container">Select your cup size</div>
+            <div class="w3-half selectcoffee w3-container label">Select your cup size</div>
             <div class="w3-half selectcoffee w3-container">
-                <select class="w3-select" style="width:250px;">
+                <select class="w3-select" style="width:200px;">
                 <option *ngFor="let cup of cupSize">
                   {{cup.name}}
                 </option>
               </select>
               </div>
             </div>
+            <div>
+                    <div class="w3-half selectcoffee w3-container label">Select your milk</div>
+                    <div class="w3-half selectcoffee w3-container">
+                        <select class="w3-select" style="width:200px;">
+                        <option *ngFor="let milk of milkType">
+                          {{milk.name}}
+                        </option>
+                      </select>
+                      </div>
+                    </div>
+    <div>&nbsp;</div>              
            
   <div>
-      
         <div class="w3-container">
           <div class="w3-row" *ngFor="let extra of extras" id="extra-{{extra.code}}">
             <div class="w3-col s2">
@@ -29,11 +39,11 @@
                 <i class="material-icons">remove_circle_outline</i>
               </button>
             </div>
-            <div class="w3-col s8">
+            <div class="w3-col s9">
               <input type="text" maxlength="1" class="extra-count" value="{{extra.count}}" />
-              <span class="extra">{{extra.name}}</span>
+              <span class="extra label">{{extra.name}}</span>
             </div>
-            <div class="w3-col s2">
+            <div class="w3-col s1">
               <button (click)="incrementExtra(extra.code)">
                 <i class="material-icons">add_circle_outline</i>
               </button>
