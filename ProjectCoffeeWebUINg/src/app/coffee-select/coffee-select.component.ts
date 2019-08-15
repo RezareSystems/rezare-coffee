@@ -28,6 +28,7 @@ export class CoffeeSelectComponent implements OnInit {
   ];
 
   milkType = [
+    { name: 'Normal', code: 'T' },
     { name: 'Trim', code: 'T' },
     { name: 'Soy', code: 'S' }
     

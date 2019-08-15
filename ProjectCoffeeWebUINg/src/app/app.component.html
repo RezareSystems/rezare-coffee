@@ -1,6 +1,5 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div class="w3-myfont">
-
+<div>
  <img width="100%" alt="Coffee" src="assets/images/steamingcoffee.gif" class="w3-opacity back">
   <div class="w3-display-topleft w3-container">
     <div class="w3-bar" style="text-align: right;">
@@ -11,8 +10,8 @@
         <button *ngIf="!isLoggedIn" class="w3-bar-item w3-button" (click)="logIn()">Log In</button>
     </div>
   </div>
-  <div class="w3-display-topmiddle w3-container">
-    <h1>Project Coffee<br /><small>Caffinating y'all since ages ago</small></h1>
+  <div class="w3-display-topmiddle w3-container" style="margin-top: 20px;">
+    <h1 class="heading">Project Coffee   <small>Caffinating y'all since ages ago</small></h1>
   </div>
   <router-outlet></router-outlet>
 </div>

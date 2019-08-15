@@ -1,5 +1,21 @@
-<div class="w3-display-middle w3-large">
-    <p>coffee-list works!</p>
-    <button (click)="getAll()">Do stuff!</button>
-    <p *ngFor="let x of allUsers">{{x.UserName}}</p>
+<div class="list">
+    
+<h1>Check staff presence in office and order Coffees!</h1>
+<div>
+
+  <table style="width:100%">
+        <tr>
+          <th class="label">Name</th>
+          <th class="label">Coffee</th> 
+          <th class="label">Notes</th>
+          <th class="label">Add to Order?</th>
+        </tr>
+        <tr *ngFor="let x of allUsers">
+            <td>{{x.UserName}}</td>
+            <td>{{x.DrinkCode}}</td>
+            <td>&nbsp;</td>
+            <td><input type="checkbox" /></td>
+        </tr>
+      </table>  
+    </div>
 </div>
