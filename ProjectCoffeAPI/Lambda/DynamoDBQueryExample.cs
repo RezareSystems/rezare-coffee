@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using Amazon.Runtime;
 
@@ -32,18 +31,18 @@ namespace ProjectCoffeAPI.Functions
 
         public void InsertUserData()
         {
-            Table table = InitializeClientAndTable();
+            //Table table = InitializeClientAndTable();
 
-            var user = new Document();
-            user["UserId"] = "bloemj";
-            user["Name"] = "Janine";
-            user["Drink"] = "Coffee, no sugar";
-            table.PutItemAsync(user);
+            //var user = new Document();
+            //user["UserId"] = "bloemj";
+            //user["Name"] = "Janine";
+            //user["Drink"] = "Coffee, no sugar";
+            //table.PutItemAsync(user);
 
-            user["UserId"] = "danielB";
-            user["Name"] = "Daniel";
-            user["Drink"] = "Coffee, no milk";
-            table.PutItemAsync(user);
+            //user["UserId"] = "danielB";
+            //user["Name"] = "Daniel";
+            //user["Drink"] = "Coffee, no milk";
+            //table.PutItemAsync(user);
         }
 
         public async Task<User> GetUser()
@@ -61,18 +60,19 @@ namespace ProjectCoffeAPI.Functions
             //return new User();
 
 
-            User user = _context.Load<User>(productId, new DynamoDBContextConfig { ConsistentRead = true, SkipVersionCheck = true });
+            User user = await _context.LoadAsync<User>("vivekS");
+            return user;
 
         }
 
-        private Table InitializeClientAndTable()
-        {
+        //private Table InitializeClientAndTable()
+        //{
             
 
-            Table table = Table.LoadTable<User>("janineB");
+        //    Table table = Table.LoadTable<User>("janineB");
 
-            return table;
-        }
+        //    return table;
+        //}
     }
 
     [DynamoDBTable("Users")]
