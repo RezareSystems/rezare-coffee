@@ -14,11 +14,6 @@ namespace ProjectCoffeAPI.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            DynamoDBQueryExample example = new DynamoDBQueryExample();
-            //example.InsertUserData();
-            var user = example.GetUser();
-
-
             return new string[] { "value1", "value2" };
         }
 

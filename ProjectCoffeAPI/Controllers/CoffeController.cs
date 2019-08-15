@@ -25,9 +25,9 @@ namespace ProjectCoffeAPI.Controllers
         public IActionResult Get()
         {
             DynamoDBQueryExample example = new DynamoDBQueryExample();
-            //var user = example.GetUser();
-            //example.InsertTestUser();
-            var updateResult = example.DeleteUser("test1");
+            var userReturned = example.GetUser("janineB");
+            
+                      
 
             var result = _coffeService.GetUserList();
             return Ok(result);
