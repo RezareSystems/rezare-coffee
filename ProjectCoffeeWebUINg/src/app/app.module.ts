@@ -10,11 +10,13 @@ import { NullValidationHandler } from 'angular-oauth2-oidc';
 import { authConfig } from './auth.config';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { LoginComponent } from './login/login.component';
+import { CoffeeSelectComponent } from './coffee-select/coffee-select.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    CoffeeSelectComponent
   ],
   imports: [
     HttpClientModule,
