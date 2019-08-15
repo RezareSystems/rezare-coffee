@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectCoffeeAPI", "Project
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectCoffeAPI.Tests", "ProjectCoffeAPI.Tests\ProjectCoffeAPI.Tests.csproj", "{DCA89B32-606B-4E59-8BA2-8FCDC3066E20}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectCoffeeAuthorizerLambda", "ProjectCoffeeAuthorizerLambda\ProjectCoffeeAuthorizerLambda.csproj", "{33D63B87-BEC6-419F-A219-E8182FFF0913}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectCoffeeLambdas", "ProjectCoffeeAuthorizerLambda\ProjectCoffeeLambdas.csproj", "{33D63B87-BEC6-419F-A219-E8182FFF0913}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
