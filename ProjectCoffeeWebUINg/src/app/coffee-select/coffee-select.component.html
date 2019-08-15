@@ -1,1 +1,13 @@
+<div class="w3-display-middle w3-large">
 <p>coffee-select works!</p>
+<div class="selectcoffee">
+    Select your coffee
+  
+        <select class="w3-select" style="width:250px;">
+        <option *ngFor="let coffee of coffeeList">
+          {{coffee.name}}
+        </option>
+      </select>
+    
+</div>
+</div>     
