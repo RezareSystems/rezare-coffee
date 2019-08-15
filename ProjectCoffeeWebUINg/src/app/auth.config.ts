@@ -6,7 +6,7 @@ export const authConfig: AuthConfig = {
   issuer: 'https://login.microsoftonline.com/6ab8b79b-42b6-40fd-a177-4540c8f1b365/v2.0',
   
   // URL of the SPA to redirect the user to after login
-  redirectUri: window.location.origin + '/login',
+  redirectUri: window.location.origin,
   
   // The SPA's id. The SPA is registered with this id at the auth-server
   clientId: 'b5b2aa1e-66ba-40ff-a3f8-425cc6beaaee',

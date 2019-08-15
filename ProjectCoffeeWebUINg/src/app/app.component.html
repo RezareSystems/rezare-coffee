@@ -5,8 +5,8 @@
       <div class="w3-bar" style="text-align: right;">
         <button class="w3-bar-item w3-button" type="button">
            </button>
-          <button *ngIf="isLoggedIn" class="w3-bar-item w3-button">Log Out</button>
-          <button *ngIf="!isLoggedIn" class="w3-bar-item w3-button">Log In</button>
+          <button *ngIf="isLoggedIn" class="w3-bar-item w3-button" (click)="logOut">Log Out</button>
+          <button *ngIf="!isLoggedIn" class="w3-bar-item w3-button" (click)="logIn">Log In</button>
       </div>
     </div>
         <div class="w3-display-topmiddle w3-container">
