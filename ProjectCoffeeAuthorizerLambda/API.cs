@@ -18,6 +18,8 @@ namespace ProjectCoffeeLambdas
 
         public async Task<List<User>> GetAllUsers(object input, ILambdaContext context)
         { 
+            context.Logger.Log("GET ALL USERs: " + input );
+
             InitializeDB();
             
             var conditions = new List<ScanCondition>();
@@ -27,6 +29,7 @@ namespace ProjectCoffeeLambdas
 
         public async Task<User> GetUser(object key, ILambdaContext context)
         {
+            context.Logger.Log("GET USER: " + key);
             InitializeDB();
 
             return await _context.LoadAsync<User>(key);
@@ -34,6 +37,7 @@ namespace ProjectCoffeeLambdas
 
         public async Task<bool> DeleteUser(object key, ILambdaContext context)
         {
+            context.Logger.Log("DELETE USER: " + key);
             InitializeDB();
 
             //get user from key
@@ -54,6 +58,7 @@ namespace ProjectCoffeeLambdas
 
         public async Task<bool> AddUser(User addUser, ILambdaContext context)
         {
+            context.Logger.Log("ADD USER: " + addUser);
             InitializeDB();
 
             User user = await _context.LoadAsync<User>(addUser.UserId);
@@ -70,6 +75,7 @@ namespace ProjectCoffeeLambdas
 
         public async Task<bool> UpdateUser(User existingUser, ILambdaContext context)
         {
+            context.Logger.Log("UPDATE USER: " + existingUser);
             InitializeDB();
 
             //get user from key

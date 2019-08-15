@@ -17,5 +17,6 @@
     "function-name"        : "UpdateUser",
     "function-role"        : "arn:aws:iam::546105731537:role/coffee-lambda-AspNetCoreFunctionRole-1CZ1K3WAVRQPL",
     "tracing-mode"         : "PassThrough",
-    "environment-variables" : ""
+    "environment-variables" : "",
+    "function-description"  : ""
 }
