@@ -9,6 +9,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 export class CoffeeSelectComponent implements OnInit {
 
   coffeeList = [
+    { name: 'No Drink', code: 'N' },
     { name: 'Hot Chocolate', code: 'HC' },
     { name: 'Flat White', code: 'FW' },
     { name: 'Latte', code: 'LT' },
@@ -35,16 +36,31 @@ export class CoffeeSelectComponent implements OnInit {
   ];
 
   extras = [
-    { name: 'Extra Shot', code: 'ES' },
-    { name: 'Vanilla Shot', code: 'V' },
-    { name: 'Caramel Shot', code: 'CA' },
-    { name: 'Chocolate Shot', code: 'CH' },
+    { name: 'Extra Shot', code: 'ES', count: 0 },
+    { name: 'Vanilla Shot', code: 'V', count: 0 },
+    { name: 'Caramel Shot', code: 'CA', count: 0 },
+    { name: 'Chocolate Shot', code: 'CH', count: 0 },
   ]
 
-  constructor(private oauthService: OAuthService) {
+  selectedDrink;
+
+  constructor(private oauthService: OAuthService) { }
+
+  ngOnInit() { }
+
+  public incrementExtra(code) {
+    for(var i = 0; i < this.extras.length; i++) {
+      if(this.extras[i].code != code) continue;
+      this.extras[i].count += 1;
+    }
   }
 
-  ngOnInit() {
+  public decrementExtra(code) {
+    for(var i = 0; i < this.extras.length; i++) {
+      if(this.extras[i].code != code) continue;
+      if(this.extras[i].count == 0) continue;
+      this.extras[i].count -= 1;
+    }
   }
 
 }

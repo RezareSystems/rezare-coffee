@@ -1,13 +1,29 @@
 <div class="w3-display-middle w3-large">
-<p>coffee-select works!</p>
-<div class="selectcoffee">
-    Select your coffee
-  
-        <select class="w3-select" style="width:250px;">
-        <option *ngFor="let coffee of coffeeList">
-          {{coffee.name}}
-        </option>
-      </select>
+  <div class="selectcoffee">
+      Select your coffee
     
-</div>
+        <select class="w3-select" style="width:250px;">
+          <option *ngFor="let coffee of coffeeList" value="{{coffee.code}}">
+            {{coffee.name}}
+          </option>
+        </select>
+        <div class="">
+          <div class="w3-row" *ngFor="let extra of extras" id="extra-{{extra.code}}">
+            <div class="w3-col s2">
+              <button (click)="decrementExtra(extra.code)">
+                <i class="material-icons">remove_circle_outline</i>
+              </button>
+            </div>
+            <div class="w3-col s8">
+              <input type="text" maxlength="1" class="extra-count" value="{{extra.count}}" />
+              <span>{{extra.name}}</span>
+            </div>
+            <div class="w3-col s2">
+              <button (click)="incrementExtra(extra.code)">
+                <i class="material-icons">add_circle_outline</i>
+              </button>
+            </div>
+          </div>
+        </div>
+  </div>
 </div>     
