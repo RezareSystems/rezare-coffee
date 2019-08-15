@@ -1,25 +1,19 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div>
-    <img width="100%" alt="Coffee" src="assets/images/steamingcoffee.gif" class="w3-opacity">
-    <div class="w3-display-topleft w3-container">
-      <div class="w3-bar" style="text-align: right;">
-        <button class="w3-bar-item w3-button" type="button">
-           </button>
-          <button *ngIf="isLoggedIn" class="w3-bar-item w3-button">Log Out</button>
-          <button *ngIf="!isLoggedIn" class="w3-bar-item w3-button">Log In</button>
-      </div>
+  <img width="100%" alt="Coffee" src="assets/images/steamingcoffee.gif" class="w3-opacity">
+  <div class="w3-display-topleft w3-container">
+    <div class="w3-bar" style="text-align: right;">
+        <a class="w3-bar-item w3-button" href="/">Home</a>
+        <a class="w3-bar-item w3-button" href="/list">Print Out</a>
+        <button *ngIf="isLoggedIn" class="w3-bar-item w3-button" (click)="logOut()">Log Out</button>
+        <button *ngIf="!isLoggedIn" class="w3-bar-item w3-button" (click)="logIn()">Log In</button>
     </div>
-  
-      <div class="w3-display-topmiddle w3-container">
-  <h1>
-   Rezare Coffee App
-  </h1>
- </div>
- 
- <router-outlet></router-outlet>
-
+  </div>
+  <div class="w3-display-topmiddle w3-container">
+    <h1>Project Coffee<br /><small>Caffinating y'all since ages ago</small></h1>
+  </div>
+  <router-outlet></router-outlet>
 </div>
-
 <div class="footer">
   <img alt="Rezare" src="assets/images/RezareLogo.png">
 </div>

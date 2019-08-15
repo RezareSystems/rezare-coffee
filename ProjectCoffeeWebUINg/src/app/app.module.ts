@@ -9,14 +9,14 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { NullValidationHandler } from 'angular-oauth2-oidc';
 import { authConfig } from './auth.config';
 import { OAuthModule } from 'angular-oauth2-oidc';
-import { LoginComponent } from './login/login.component';
 import { CoffeeSelectComponent } from './coffee-select/coffee-select.component';
+import { CoffeeListComponent } from './coffee-list/coffee-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    CoffeeSelectComponent
+    CoffeeSelectComponent,
+    CoffeeListComponent
   ],
   imports: [
     HttpClientModule,

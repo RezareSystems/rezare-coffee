@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectCoffeeAPI", "Project
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectCoffeAPI.Tests", "ProjectCoffeAPI.Tests\ProjectCoffeAPI.Tests.csproj", "{DCA89B32-606B-4E59-8BA2-8FCDC3066E20}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectCoffeeAuthorizerLambda", "ProjectCoffeeAuthorizerLambda\ProjectCoffeeAuthorizerLambda.csproj", "{33D63B87-BEC6-419F-A219-E8182FFF0913}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DCA89B32-606B-4E59-8BA2-8FCDC3066E20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCA89B32-606B-4E59-8BA2-8FCDC3066E20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCA89B32-606B-4E59-8BA2-8FCDC3066E20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33D63B87-BEC6-419F-A219-E8182FFF0913}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33D63B87-BEC6-419F-A219-E8182FFF0913}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33D63B87-BEC6-419F-A219-E8182FFF0913}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{33D63B87-BEC6-419F-A219-E8182FFF0913}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
