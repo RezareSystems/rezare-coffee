@@ -1,5 +1,5 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
   <a class="navbar-brand" href="#">
     <img src="/assets/images/RezareLogo_200w.png" width="55" height="35" class="d-inline-block align-top" alt="">
     Project Coffee
@@ -8,8 +8,8 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <button *ngIf="isLoggedIn" class="btn btn-secondary text-right">Log Out</button>
-    <button *ngIf="!isLoggedIn" class="btn btn-secondary">Log In</button>
+    <button *ngIf="isLoggedIn" class="btn btn-secondary text-right" (click)="logOut()">Log Out</button>
+    <button *ngIf="!isLoggedIn" class="btn btn-secondary" (click)="logIn()">Log In</button>
   </div>
 </nav>
 <div style="text-align:center">
