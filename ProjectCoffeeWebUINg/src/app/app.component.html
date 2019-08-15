@@ -5,6 +5,7 @@
   <div class="w3-display-topleft w3-container">
     <div class="w3-bar" style="text-align: right;">
         <a class="w3-bar-item w3-button" href="/">Home</a>
+        <span class="w3-bar-item">{{userName}}</span>
         <a class="w3-bar-item w3-button" href="/list">Print Out</a>
         <button *ngIf="isLoggedIn" class="w3-bar-item w3-button" (click)="logOut()">Log Out</button>
         <button *ngIf="!isLoggedIn" class="w3-bar-item w3-button" (click)="logIn()">Log In</button>

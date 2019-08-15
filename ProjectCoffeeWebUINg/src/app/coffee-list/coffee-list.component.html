@@ -1,1 +1,5 @@
-<p>coffee-list works!</p>
+<div class="w3-display-middle w3-large">
+    <p>coffee-list works!</p>
+    <button (click)="getAll()">Do stuff!</button>
+    <p *ngFor="let x of allUsers">{{x.UserName}}</p>
+</div>

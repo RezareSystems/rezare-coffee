@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../services/api-service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-coffee-list',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoffeeListComponent implements OnInit {
 
-  constructor() { }
+  allUsers: User[] = [];
+
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
+  }
+
+  getAll() {
+    this.apiService.getAllUsers().subscribe(data => {
+      this.allUsers = data;
+    });
   }
 
 }

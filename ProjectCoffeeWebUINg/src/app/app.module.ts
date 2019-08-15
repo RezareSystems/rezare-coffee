@@ -11,6 +11,8 @@ import { authConfig } from './auth.config';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { CoffeeSelectComponent } from './coffee-select/coffee-select.component';
 import { CoffeeListComponent } from './coffee-list/coffee-list.component';
+import { ApiService } from './services/api-service';
+import { OAuthParseService } from './services/oauth-parse-service';
 
 @NgModule({
   declarations: [
@@ -22,9 +24,17 @@ import { CoffeeListComponent } from './coffee-list/coffee-list.component';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot({
+      resourceServer: {
+          allowedUrls: ['https://i1h2ug2l87.execute-api.ap-southeast-2.amazonaws.com/zombies'],
+          sendAccessToken: true
+      }
+  })
   ],
-  providers: [],
+  providers: [
+    ApiService,
+    OAuthParseService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

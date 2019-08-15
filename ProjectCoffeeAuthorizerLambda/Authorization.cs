@@ -31,8 +31,9 @@ namespace ProjectCoffeeLambdas
             {
                 try
                 {
+                    inputToken = inputToken.Replace("Bearer", string.Empty).Trim();
                     var token = new JwtSecurityToken(inputToken);
-                    ok = token.Issuer == "https://login.microsoftonline.com/6ab8b79b-42b6-40fd-a177-4540c8f1b365/v2.0";
+                    ok = token.Issuer == "https://sts.windows.net/6ab8b79b-42b6-40fd-a177-4540c8f1b365/";
                     context.Logger.Log($"Issuer: {token.Issuer}");
                     context.Logger.Log($"Issuer Valid: {ok}");
                     context.Logger.Log($"Subject: {token.Subject}");
