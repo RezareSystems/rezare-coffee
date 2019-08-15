@@ -12,7 +12,7 @@ namespace ProjectCoffeAPI
     /// This class extends from APIGatewayProxyFunction which contains the method FunctionHandlerAsync which is the 
     /// actual Lambda function entry point. The Lambda handler field should be set to
     /// 
-    /// ProjectCoffeAPI::ProjectCoffeAPI.LambdaEntryPoint::FunctionHandlerAsync
+    /// ProjectCoffeeAPI::ProjectCoffeeAPI.LambdaEntryPoint::FunctionHandlerAsync
     /// </summary>
     public class LambdaEntryPoint :
         // When using an ELB's Application Load Balancer as the event source change 

@@ -24,6 +24,6 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectCoffeAPI\ProjectCoffeAPI.csproj" />
+    <ProjectReference Include="..\ProjectCoffeAPI\ProjectCoffeeAPI.csproj" />
   </ItemGroup>
 </Project>

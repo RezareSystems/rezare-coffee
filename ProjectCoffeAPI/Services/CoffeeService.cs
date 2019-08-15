@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Amazon;
+﻿using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.Model;
-using Amazon.Runtime;
+using ProjectCoffeAPI.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace ProjectCoffeAPI.Functions
+namespace ProjectCoffeAPI.Services
 {
-    public class DynamoDBQueryExample
+    public class CoffeeService : ICoffeeService
     {
         private readonly DynamoDBContext _context;
 
-        public DynamoDBQueryExample()
+        public CoffeeService()
         {
             var credentials = new Amazon.Runtime.StoredProfileAWSCredentials("coffeesite");
             AmazonDynamoDBClient client = new AmazonDynamoDBClient(credentials, RegionEndpoint.APSoutheast2);
@@ -22,25 +19,7 @@ namespace ProjectCoffeAPI.Functions
             _context = new DynamoDBContext(client, new DynamoDBContextConfig { ConsistentRead = true, SkipVersionCheck = true });
         }
 
-        public User GetTestUser()
-        {
-            User newUser = new User
-            {
-                UserId = "janineB",
-                UserName = "Janine",
-                DrinkCode = "HC",
-                CupSizeCode = "R",
-                MilkTypeCode = "Trim",
-                Extras = new List<DrinkExtra>()
-                 {new DrinkExtra { ExtraCode = "CA", ExtraCount = 2 } }
-            };
-
-            return newUser;
-        }
-
-        public List<DrinkExtra> Extras { get; set; }
-
-        public async Task<bool> InsertUser(User addUser)
+        public async Task<bool> AddUser(User addUser)
         {
             User user = await _context.LoadAsync<User>(addUser.UserId);
 
@@ -66,15 +45,17 @@ namespace ProjectCoffeAPI.Functions
             return await _context.ScanAsync<User>(conditions).GetRemainingAsync();
         }
 
-        public async Task<bool> UpdateUser(string key)
+        public async Task<bool> UpdateUser(User existingUser)
         {
             //get user from key
-            User updatedUser = await _context.LoadAsync<User>(key);
+            User updatedUser = await _context.LoadAsync<User>(existingUser.UserId);
 
             if (updatedUser != null)
             {
-                updatedUser.DrinkCode = "Updated Drink";
-                updatedUser.UserName = "Updated Name";
+                updatedUser.DrinkCode = existingUser.DrinkCode;
+                updatedUser.CupSizeCode = existingUser.CupSizeCode;
+                updatedUser.Extras = existingUser.Extras;
+                updatedUser.MilkTypeCode = existingUser.MilkTypeCode;
 
                 await _context.SaveAsync(updatedUser);
 
@@ -101,30 +82,21 @@ namespace ProjectCoffeAPI.Functions
 
             return false;
         }
-    }
 
-    [DynamoDBTable("Users")]
-    public class User
-    {
-        [DynamoDBHashKey]
-        public string UserId { get; set; }
-        [DynamoDBProperty]
-        public string UserName { get; set; }
-        [DynamoDBProperty]
-        public string DrinkCode { get; set; }
-        [DynamoDBProperty]
-        public string CupSizeCode { get; set; }
+        public User GetTestUser()
+        {
+            User newUser = new User
+            {
+                UserId = "janineB",
+                UserName = "Janine",
+                DrinkCode = "HC",
+                CupSizeCode = "R",
+                MilkTypeCode = "Trim",
+                Extras = new List<DrinkExtra>()
+                 {new DrinkExtra { ExtraCode = "CA", ExtraCount = 2 } }
+            };
 
-        [DynamoDBProperty]
-        public string MilkTypeCode { get; set; }
-
-        [DynamoDBProperty]
-        public List<DrinkExtra> Extras { get; set; }
-    }
-
-    public class DrinkExtra
-    {
-        public string ExtraCode { get; set; }
-        public int ExtraCount { get; set; }
+            return newUser;
+        }
     }
 }
