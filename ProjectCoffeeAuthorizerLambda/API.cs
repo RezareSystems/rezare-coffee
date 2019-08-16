@@ -9,6 +9,7 @@ using Amazon.DynamoDBv2.DataModel;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using ProjectCoffeAPI.Models;
+using ProjectCoffeeLambdas.Models;
 
 namespace ProjectCoffeeLambdas
 {
@@ -27,12 +28,12 @@ namespace ProjectCoffeeLambdas
             return await _context.ScanAsync<User>(conditions).GetRemainingAsync();
         }
 
-        public async Task<User> GetUser(object key, ILambdaContext context)
+        public async Task<User> GetUser(MyIds user, ILambdaContext context)
         {
-            context.Logger.Log("GET USER: " + key);
+            context.Logger.Log("GET USER: " + user.id);
             InitializeDB();
-
-            return await _context.LoadAsync<User>(key);
+            
+            return await _context.LoadAsync<User>(user.id);
         }
 
         public async Task<bool> DeleteUser(object key, ILambdaContext context)
@@ -72,6 +73,7 @@ namespace ProjectCoffeeLambdas
 
             return true;
         }
+        
 
         public async Task<bool> UpdateUser(User existingUser, ILambdaContext context)
         {
