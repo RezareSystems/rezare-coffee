@@ -45,7 +45,7 @@ export class CoffeeSelectComponent implements OnInit {
     { name: 'Sugar', code: 'S', count: 0 }
   ]
 
-  selectedDrink;
+  selectedCupSize: string;
 
   constructor(private oauthService: OAuthService,
     private parseService: OAuthParseService,
